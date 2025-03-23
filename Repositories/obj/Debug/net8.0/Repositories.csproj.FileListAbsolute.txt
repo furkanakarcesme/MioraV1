@@ -13,3 +13,4 @@
 /Users/furkanakarcesme/RiderProjects/Miora/Repositories/obj/Debug/net8.0/refint/Repositories.dll
 /Users/furkanakarcesme/RiderProjects/Miora/Repositories/obj/Debug/net8.0/Repositories.pdb
 /Users/furkanakarcesme/RiderProjects/Miora/Repositories/obj/Debug/net8.0/ref/Repositories.dll
+/Users/furkanakarcesme/RiderProjects/Miora/Repositories/obj/Debug/net8.0/Repositories.sourcelink.json

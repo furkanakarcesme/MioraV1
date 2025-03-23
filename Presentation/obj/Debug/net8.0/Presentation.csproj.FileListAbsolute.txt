@@ -17,3 +17,4 @@
 /Users/furkanakarcesme/RiderProjects/Miora/Presentation/obj/Debug/net8.0/refint/Presentation.dll
 /Users/furkanakarcesme/RiderProjects/Miora/Presentation/obj/Debug/net8.0/Presentation.pdb
 /Users/furkanakarcesme/RiderProjects/Miora/Presentation/obj/Debug/net8.0/ref/Presentation.dll
+/Users/furkanakarcesme/RiderProjects/Miora/Presentation/obj/Debug/net8.0/Presentation.sourcelink.json

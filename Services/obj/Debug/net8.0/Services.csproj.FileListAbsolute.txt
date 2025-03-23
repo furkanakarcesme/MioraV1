@@ -15,3 +15,4 @@
 /Users/furkanakarcesme/RiderProjects/Miora/Services/obj/Debug/net8.0/refint/Services.dll
 /Users/furkanakarcesme/RiderProjects/Miora/Services/obj/Debug/net8.0/Services.pdb
 /Users/furkanakarcesme/RiderProjects/Miora/Services/obj/Debug/net8.0/ref/Services.dll
+/Users/furkanakarcesme/RiderProjects/Miora/Services/obj/Debug/net8.0/Services.sourcelink.json
