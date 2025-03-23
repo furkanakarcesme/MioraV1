@@ -47,4 +47,48 @@ public static class SlotGenerator
 
         return slots;
     }
+    
+    
+    
+    public static List<Availability> GenerateSlotsForSingleDay(int doctorId, DateTime day)
+    {
+        List<Availability> slots = new List<Availability>();
+        TimeSpan morningStart = new TimeSpan(9,0,0);
+        TimeSpan morningEnd = new TimeSpan(12,0,0);
+        TimeSpan afternoonStart = new TimeSpan(13,0,0);
+        TimeSpan afternoonEnd = new TimeSpan(17,0,0);
+        TimeSpan slotDuration = TimeSpan.FromMinutes(15);
+
+        for (var time = morningStart; time < morningEnd; time += slotDuration)
+        {
+            slots.Add(new Availability {
+                DoctorId = doctorId,
+                AvailableDate = day,
+                StartTime = time,
+                EndTime = time + slotDuration,
+                IsBooked = false,
+                IsDeleted = false
+            });
+        }
+
+        for (var time = afternoonStart; time < afternoonEnd; time += slotDuration)
+        {
+            slots.Add(new Availability {
+                DoctorId = doctorId,
+                AvailableDate = day,
+                StartTime = time,
+                EndTime = time + slotDuration,
+                IsBooked = false,
+                IsDeleted = false
+            });
+        }
+
+        return slots;
+    }
+    
+    
+    
+    
+    
+    
 }
