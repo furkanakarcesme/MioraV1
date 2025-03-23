@@ -10,7 +10,66 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbd76e13-e5e6-40c3-8e04-27670e125a0b" name="Changes" comment="" />
+    <list default="true" id="fbd76e13-e5e6-40c3-8e04-27670e125a0b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Repositories/Contracts/IUserRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Repositories/EFCore/UserRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/Controllers/AppointmentController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/Controllers/AppointmentController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/Controllers/AvailabilityController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/Controllers/AvailabilityController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/bin/Debug/net8.0/Presentation.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/bin/Debug/net8.0/Presentation.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/bin/Debug/net8.0/Presentation.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/bin/Debug/net8.0/Presentation.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/bin/Debug/net8.0/Repositories.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/bin/Debug/net8.0/Repositories.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/bin/Debug/net8.0/Repositories.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/bin/Debug/net8.0/Repositories.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/bin/Debug/net8.0/Services.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/bin/Debug/net8.0/Services.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/bin/Debug/net8.0/Services.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/bin/Debug/net8.0/Services.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/obj/Debug/net8.0/Presentation.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/obj/Debug/net8.0/Presentation.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/obj/Debug/net8.0/Presentation.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/obj/Debug/net8.0/Presentation.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/obj/Debug/net8.0/Presentation.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/obj/Debug/net8.0/Presentation.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/obj/Debug/net8.0/Presentation.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/obj/Debug/net8.0/Presentation.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/obj/Debug/net8.0/Presentation.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/obj/Debug/net8.0/Presentation.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/obj/Debug/net8.0/Presentation.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/obj/Debug/net8.0/Presentation.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/obj/Debug/net8.0/ref/Presentation.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/obj/Debug/net8.0/ref/Presentation.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/obj/Debug/net8.0/refint/Presentation.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/obj/Debug/net8.0/refint/Presentation.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/Contracts/IRepositoryManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/Contracts/IRepositoryManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/EFCore/RepositoryManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/EFCore/RepositoryManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/bin/Debug/net8.0/Repositories.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/bin/Debug/net8.0/Repositories.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/bin/Debug/net8.0/Repositories.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/bin/Debug/net8.0/Repositories.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/ref/Repositories.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/ref/Repositories.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/refint/Repositories.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/refint/Repositories.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/bin/Debug/net8.0/Repositories.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Services/bin/Debug/net8.0/Repositories.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/bin/Debug/net8.0/Repositories.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Services/bin/Debug/net8.0/Repositories.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/bin/Debug/net8.0/Services.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Services/bin/Debug/net8.0/Services.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/bin/Debug/net8.0/Services.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Services/bin/Debug/net8.0/Services.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/obj/Debug/net8.0/Services.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/obj/Debug/net8.0/Services.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/obj/Debug/net8.0/Services.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Services/obj/Debug/net8.0/Services.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/obj/Debug/net8.0/Services.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Services/obj/Debug/net8.0/Services.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/obj/Debug/net8.0/Services.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Services/obj/Debug/net8.0/Services.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/obj/Debug/net8.0/Services.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Services/obj/Debug/net8.0/Services.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/obj/Debug/net8.0/Services.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/Services/obj/Debug/net8.0/Services.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/obj/Debug/net8.0/ref/Services.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Services/obj/Debug/net8.0/ref/Services.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/obj/Debug/net8.0/refint/Services.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Services/obj/Debug/net8.0/refint/Services.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi/bin/Debug/net8.0/Presentation.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/bin/Debug/net8.0/Presentation.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi/bin/Debug/net8.0/Presentation.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/bin/Debug/net8.0/Presentation.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi/bin/Debug/net8.0/Repositories.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/bin/Debug/net8.0/Repositories.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi/bin/Debug/net8.0/Repositories.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/bin/Debug/net8.0/Repositories.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi/bin/Debug/net8.0/Services.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/bin/Debug/net8.0/Services.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi/bin/Debug/net8.0/Services.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/bin/Debug/net8.0/Services.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi/bin/Debug/net8.0/WebApi.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/bin/Debug/net8.0/WebApi.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi/bin/Debug/net8.0/WebApi.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/bin/Debug/net8.0/WebApi.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi/obj/Debug/net8.0/WebApi.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/obj/Debug/net8.0/WebApi.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi/obj/Debug/net8.0/WebApi.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/obj/Debug/net8.0/WebApi.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi/obj/Debug/net8.0/WebApi.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/obj/Debug/net8.0/WebApi.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi/obj/Debug/net8.0/WebApi.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/obj/Debug/net8.0/WebApi.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi/obj/Debug/net8.0/WebApi.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/obj/Debug/net8.0/WebApi.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi/obj/Debug/net8.0/WebApi.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/obj/Debug/net8.0/WebApi.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi/obj/Debug/net8.0/ref/WebApi.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/obj/Debug/net8.0/ref/WebApi.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi/obj/Debug/net8.0/refint/WebApi.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/obj/Debug/net8.0/refint/WebApi.dll" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,10 +78,16 @@
   <component name="DpaMonitoringSettings">
     <option name="autoShow" value="false" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2ua7FDKGey5lxDcAVvyFa6gvGM2" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -32,6 +97,7 @@
     ".NET Launch Settings Profile.WebApi: http.executor": "Debug",
     ".NET Launch Settings Profile.WebApi: https.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -119,7 +185,7 @@
       <option name="presentableId" value="Default" />
       <updated>1742474725862</updated>
       <workItem from="1742474726961" duration="24663000" />
-      <workItem from="1742593122482" duration="6975000" />
+      <workItem from="1742593122482" duration="17809000" />
     </task>
     <servers />
   </component>
@@ -134,43 +200,17 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Presentation/Controllers/AppointmentController.cs</url>
-          <line>32</line>
-          <properties documentPath="$PROJECT_DIR$/Presentation/Controllers/AppointmentController.cs" containingFunctionPresentation="Method 'BookAppointment'">
+          <url>file://$PROJECT_DIR$/Presentation/Controllers/AvailabilityController.cs</url>
+          <line>21</line>
+          <properties documentPath="$PROJECT_DIR$/Presentation/Controllers/AvailabilityController.cs" containingFunctionPresentation="Method 'GetAvailableSlots'">
             <startOffsets>
-              <option value="979" />
+              <option value="626" />
             </startOffsets>
             <endOffsets>
-              <option value="1055" />
+              <option value="693" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Presentation/Controllers/AppointmentController.cs</url>
-          <line>33</line>
-          <properties documentPath="$PROJECT_DIR$/Presentation/Controllers/AppointmentController.cs" containingFunctionPresentation="Method 'BookAppointment'">
-            <startOffsets>
-              <option value="1068" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1069" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Presentation/Controllers/AppointmentController.cs</url>
-          <line>36</line>
-          <properties documentPath="$PROJECT_DIR$/Presentation/Controllers/AppointmentController.cs" containingFunctionPresentation="Method 'BookAppointment'">
-            <startOffsets>
-              <option value="1119" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1367" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="6" />
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
