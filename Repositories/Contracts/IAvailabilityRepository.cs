@@ -4,8 +4,10 @@ namespace Repositories.Contracts;
 
 public interface IAvailabilityRepository
 {
-    Task<List<Availability>> GetAvailabilitiesWithLazyCreation(int doctorId, DateTime start, DateTime end);
+    Task<List<Availability>> GetAvailabilitiesForDoctorAndDay(int doctorId, DateTime day);
     
+    Task AddAvailabilitiesAsync(IEnumerable<Availability> newSlots);
+
     Task<Availability?> GetAvailabilityByDoctorAndTime(int doctorId, DateTime date, TimeSpan startTime);
 
 }
