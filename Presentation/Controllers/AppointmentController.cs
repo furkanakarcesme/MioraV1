@@ -6,7 +6,7 @@ using Repositories.Contracts;
 
 namespace Presentation.Controllers
 {
-    
+        
     [ApiController]
     [Route("api/appointment")]
     public class AppointmentController : ControllerBase
@@ -36,59 +36,59 @@ namespace Presentation.Controllers
         }
 
         // 2) Aynı ID ile randevu oluşturulmasın
-    if (request.DoctorId == request.PatientId)
-    {
-        return BadRequest(new { error = "Doktor ve hasta aynı olamaz." });
-    }
+        if (request.DoctorId == request.PatientId)
+        {
+            return BadRequest(new { error = "Doktor ve hasta aynı olamaz." });
+        }
 
-    // 3) Slot kontrolü: Slot var mı, başkası tarafından alınmış mı?
-    var slot = await _manager.Availability.GetAvailabilityByDoctorAndTime(
-        request.DoctorId,
-        request.AppointmentDate,
-        request.StartTime
-    );
+        // 3) Slot kontrolü: Slot var mı, başkası tarafından alınmış mı?
+        var slot = await _manager.Availability.GetAvailabilityByDoctorAndTime(
+            request.DoctorId,
+            request.AppointmentDate,
+            request.StartTime
+        );
 
-    if (slot == null || slot.IsBooked)
-    {
-        return BadRequest(new { error = "Bu slot zaten dolu veya geçerli değil." });
-    }
+        if (slot == null || slot.IsBooked)
+        {
+            return BadRequest(new { error = "Bu slot zaten dolu veya geçerli değil." });
+        }
 
-    // 4) Randevu oluştur
-    var appointment = new Appointment
-    {
-        PatientId = request.PatientId,
-        DoctorId = request.DoctorId,
-        AvailabilityId = slot.Id,
-        AppointmentDate = request.AppointmentDate,
-        IsCanceled = false
-    };
+        // 4) Randevu oluştur
+        var appointment = new Appointment
+        {
+            PatientId = request.PatientId,
+            DoctorId = request.DoctorId,
+            AvailabilityId = slot.Id,
+            AppointmentDate = request.AppointmentDate,
+            IsCanceled = false
+        };
 
-    // 5) Veritabanına kaydet
-    await _manager.Appointment.CreateAppointmentAsync(appointment);
-    slot.IsBooked = true; // Seçilen slot artık dolu
-    await _manager.SaveAsync();
+        // 5) Veritabanına kaydet
+        await _manager.Appointment.CreateAppointmentAsync(appointment);
+        slot.IsBooked = true; // Seçilen slot artık dolu
+        await _manager.SaveAsync();
 
-    // 6) Dönüşte self-referencing loop yaşamamak için DTO kullan
-    var appointmentDto = new AppointmentDto
-    {
-        Id = appointment.Id,
-        PatientId = appointment.PatientId,
-        PatientName = patientUser.Name,   // varsa ekleyebilirsiniz
-        DoctorId = appointment.DoctorId,
-        DoctorName = doctorUser.Name,     // varsa ekleyebilirsiniz
-        AvailabilityId = appointment.AvailabilityId,
-        AppointmentDate = appointment.AppointmentDate,
-        IsCanceled = appointment.IsCanceled
-    };
+        // 6) Dönüşte self-referencing loop yaşamamak için DTO kullan
+        var appointmentDto = new AppointmentDto
+        {
+            Id = appointment.Id,
+            PatientId = appointment.PatientId,
+            PatientName = patientUser.Name,   // varsa ekleyebilirsiniz
+            DoctorId = appointment.DoctorId,
+            DoctorName = doctorUser.Name,     // varsa ekleyebilirsiniz
+            AvailabilityId = appointment.AvailabilityId,
+            AppointmentDate = appointment.AppointmentDate,
+            IsCanceled = appointment.IsCanceled
+        };
 
-    // 7) Dönüş
-    return Ok(new
-    {
-        message = "Randevu başarıyla oluşturuldu.",
-        appointment = appointmentDto
-    });
+        // 7) Dönüş
+        return Ok(new
+        {
+            message = "Randevu başarıyla oluşturuldu.",
+            appointment = appointmentDto
+        });
     
         }    
     }
-        
+        //Local Commit Deneme 
 }
