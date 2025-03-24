@@ -1,5 +1,7 @@
 using Entities.DataTransferObjects;
+using Entities.Models;
 using Repositories.Contracts;
+using Repositories.Utilities;
 using Services.Contracts;
 
 public class AvailabilityManager : IAvailabilityService
@@ -32,7 +34,7 @@ public class AvailabilityManager : IAvailabilityService
             endDate = maxEnd;
 
         // 3) Repo üzerinden slotları getir veya oluştur
-        var slots = await _repository.Availability.GetAvailabilitiesWithLazyCreation(doctorId, startDate, endDate);
+        var slots = await GetAvailabilitiesWithLazyCreation(doctorId, startDate, endDate);
 
         // 4) Entity → DTO map
         var slotsDto = slots.Select(a => new AvailabilityDto
@@ -48,5 +50,32 @@ public class AvailabilityManager : IAvailabilityService
         }).ToList();
 
         return slotsDto;
+    }
+    
+    
+    public async Task<List<Availability>> GetAvailabilitiesWithLazyCreation(int doctorId, DateTime start, DateTime end)
+    {
+        var totalSlots = new List<Availability>();
+
+        for (DateTime day = start.Date; day <= end.Date; day = day.AddDays(1))
+        {
+            // 1) O güne ait slotlar var mı?
+            var daySlots = await _repository.Availability.GetAvailabilitiesForDoctorAndDay(doctorId, day);
+
+            // 2) Yoksa yeni oluştur
+            if (!daySlots.Any())
+            {
+                var newDaySlots = SlotGenerator.GenerateSlotsForSingleDay(doctorId, day);
+                await _repository.Availability.AddAvailabilitiesAsync(newDaySlots);
+                await _repository.SaveAsync(); // Veya _context.SaveChangesAsync() 
+                totalSlots.AddRange(newDaySlots);
+            }
+            else
+            {
+                totalSlots.AddRange(daySlots);
+            }
+        }
+
+        return totalSlots;
     }
 }

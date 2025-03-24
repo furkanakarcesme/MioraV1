@@ -15,40 +15,26 @@ public class AvailabilityRepository : IAvailabilityRepository
     }
     
 
-    public async Task<List<Availability>> GetAvailabilitiesWithLazyCreation(int doctorId, DateTime start, DateTime end)
+    
+    // Yalnızca tek bir güne ait slotlar
+    public async Task<List<Availability>> GetAvailabilitiesForDoctorAndDay(int doctorId, DateTime day)
     {
-        List<Availability> totalSlots = new List<Availability>();
-
-        for (DateTime day = start.Date; day <= end.Date; day = day.AddDays(1))
-        {
-            // O gün için var mı kontrol et
-            var daySlots = await _context.Availabilities
-                .Where(a => a.DoctorId == doctorId && a.AvailableDate.Date == day.Date)
-                .ToListAsync();
-
-            if (daySlots.Count == 0)
-            {
-                // Bu güne ait slotlar yok, oluşturalım
-                var newDaySlots = SlotGenerator.GenerateSlotsForSingleDay(doctorId, day);
-                await _context.Availabilities.AddRangeAsync(newDaySlots);
-                await _context.SaveChangesAsync();
-                totalSlots.AddRange(newDaySlots);
-            }
-            else
-            {
-                // Zaten bu gün için slotlar var
-                totalSlots.AddRange(daySlots);
-            }
-        }
-
-        return totalSlots;
+        return await _context.Availabilities
+            .Where(a => a.DoctorId == doctorId && a.AvailableDate.Date == day.Date)
+            .ToListAsync();
     }
     
-    
+
+    public async Task AddAvailabilitiesAsync(IEnumerable<Availability> newSlots)
+    {
+        await _context.Availabilities.AddRangeAsync(newSlots);
+    }
+
+    // Slot kontrolü: Belirli saatte boş mu?
     public async Task<Availability?> GetAvailabilityByDoctorAndTime(int doctorId, DateTime date, TimeSpan startTime)
     {
         return await _context.Availabilities
-            .FirstOrDefaultAsync(a => 
+            .FirstOrDefaultAsync(a =>
                 a.DoctorId == doctorId &&
                 a.AvailableDate.Date == date.Date &&
                 a.StartTime.Hours == startTime.Hours &&
@@ -56,5 +42,5 @@ public class AvailabilityRepository : IAvailabilityRepository
                 a.IsBooked == false
             );
     }
-
 }
+
