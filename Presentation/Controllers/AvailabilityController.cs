@@ -13,8 +13,9 @@ public class AvailabilityController : ControllerBase
         _repository = repository;
     }
 
+    
     [HttpGet("get-available-slots")]
-    public async Task<IActionResult> GetAvailableSlots(int doctorId, DateTime startDate, DateTime endDate)
+        public async Task<IActionResult> GetAvailableSlots(int doctorId, DateTime startDate, DateTime endDate)
     {
         // 1. Parametre validasyonları (doctorId, tarih aralıkları vs.)
         if (doctorId <= 0 || startDate > endDate)
@@ -50,6 +51,6 @@ public class AvailabilityController : ControllerBase
 
         // 6. DTO return
         return Ok(slotsDto);
-    }
+        }
     
 }

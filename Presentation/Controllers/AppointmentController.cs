@@ -1,16 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Threading.Tasks;
 using Entities.DataTransferObjects;
 using Entities.Models;
 using Repositories.Contracts;
-using Repositories.EFCore;
 
 
 namespace Presentation.Controllers
 {
-    /*
+    
     [ApiController]
     [Route("api/appointment")]
     public class AppointmentController : ControllerBase
@@ -26,78 +22,73 @@ namespace Presentation.Controllers
         [HttpPost("book")]
         public async Task<IActionResult> BookAppointment([FromBody] BookAppointmentRequest request)
         {
-            // 1. Slot zaten alınmış mı kontrol et
-            var slot = await _manager.Availability.GetAvailabilityByDoctorAndTime(request.DoctorId, request.AppointmentDate, request.StartTime);
-
-            if (slot == null || slot.IsBooked)
-            {
-                return BadRequest(new { error = "Bu slot zaten dolu veya geçerli değil." });
-            }
-
-            // 2. Randevuyu oluştur
-            var appointment = new Appointment
-            {
-                PatientId = request.PatientId,
-                DoctorId = request.DoctorId,
-                AppointmentDate = request.AppointmentDate,
-                IsCanceled = false
-            };
-
-            await _manager.Appointment.CreateAppointmentAsync(appointment);
-
-            // 3. Slotu rezerve et
-            slot.IsBooked = true;
-            await _manager.SaveAsync();
-
-            return Ok(new { message = "Randevu başarıyla oluşturuldu.", appointment });
-        }
-    }
-    */
-    [ApiController]
-    [Route("api/appointment")]
-    public class AppointmentController : ControllerBase
+    // 1) Hasta ve Doktor rolleri kontrolü
+    var doctorUser = await _manager.User.GetUserByIdAsync(request.DoctorId);
+    if (doctorUser == null || doctorUser.Role != "Doctor")
     {
-        private readonly IRepositoryManager _manager;
+        return BadRequest(new { error = "Geçersiz doktor ID veya kullanıcı doktor değil." });
+    }
 
-        public AppointmentController(IRepositoryManager manager)
-        {
-            _manager = manager;
-        }
+    var patientUser = await _manager.User.GetUserByIdAsync(request.PatientId);
+    if (patientUser == null || patientUser.Role != "Patient")
+    {
+        return BadRequest(new { error = "Geçersiz hasta ID veya kullanıcı hasta değil." });
+    }
 
-        [HttpPost("book")]
-        public async Task<IActionResult> BookAppointment([FromBody] BookAppointmentRequest request)
-        {
-            // 1) Uygun slot var mı
-            var slot = await _manager.Availability.GetAvailabilityByDoctorAndTime(
-                request.DoctorId,
-                request.AppointmentDate,
-                request.StartTime
-            );
-            if (slot == null || slot.IsBooked)
-            {
-                return BadRequest(new { error = "Bu slot zaten dolu veya geçerli değil." });
-            }
+    // 2) Aynı ID ile randevu oluşturulmasın
+    if (request.DoctorId == request.PatientId)
+    {
+        return BadRequest(new { error = "Doktor ve hasta aynı olamaz." });
+    }
 
-            // 2) Appointment oluştur
-            var appointment = new Appointment
-            {
-                PatientId = request.PatientId,
-                DoctorId = request.DoctorId,
-                AppointmentDate = request.AppointmentDate,
-                IsCanceled = false,
+    // 3) Slot kontrolü: Slot var mı, başkası tarafından alınmış mı?
+    var slot = await _manager.Availability.GetAvailabilityByDoctorAndTime(
+        request.DoctorId,
+        request.AppointmentDate,
+        request.StartTime
+    );
 
-                // YENİ: Foreign Key'yi slot.Id'ye eşitle
-                AvailabilityId = slot.Id
-            };
+    if (slot == null || slot.IsBooked)
+    {
+        return BadRequest(new { error = "Bu slot zaten dolu veya geçerli değil." });
+    }
 
-            await _manager.Appointment.CreateAppointmentAsync(appointment);
+    // 4) Randevu oluştur
+    var appointment = new Appointment
+    {
+        PatientId = request.PatientId,
+        DoctorId = request.DoctorId,
+        AvailabilityId = slot.Id,
+        AppointmentDate = request.AppointmentDate,
+        IsCanceled = false
+    };
 
-            // 3) Slotu rezerve et
-            slot.IsBooked = true;
-            await _manager.SaveAsync();
+    // 5) Veritabanına kaydet
+    await _manager.Appointment.CreateAppointmentAsync(appointment);
+    slot.IsBooked = true; // Seçilen slot artık dolu
+    await _manager.SaveAsync();
 
-            return Ok(new { message = "Randevu başarıyla oluşturuldu.", appointment });
-        }
+    // 6) Dönüşte self-referencing loop yaşamamak için DTO kullan
+    var appointmentDto = new AppointmentDto
+    {
+        Id = appointment.Id,
+        PatientId = appointment.PatientId,
+        PatientName = patientUser.Name,   // varsa ekleyebilirsiniz
+        DoctorId = appointment.DoctorId,
+        DoctorName = doctorUser.Name,     // varsa ekleyebilirsiniz
+        AvailabilityId = appointment.AvailabilityId,
+        AppointmentDate = appointment.AppointmentDate,
+        IsCanceled = appointment.IsCanceled
+    };
+
+    // 7) Dönüş
+    return Ok(new
+    {
+        message = "Randevu başarıyla oluşturuldu.",
+        appointment = appointmentDto
+    });
+    
+        }    
     }
         
-    }
+}
