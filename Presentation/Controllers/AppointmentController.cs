@@ -19,23 +19,23 @@ namespace Presentation.Controllers
         }
 
         
-        [HttpPost("book")]
+        [HttpPost("book")] 
         public async Task<IActionResult> BookAppointment([FromBody] BookAppointmentRequest request)
         {
-    // 1) Hasta ve Doktor rolleri kontrolü
-    var doctorUser = await _manager.User.GetUserByIdAsync(request.DoctorId);
-    if (doctorUser == null || doctorUser.Role != "Doctor")
-    {
-        return BadRequest(new { error = "Geçersiz doktor ID veya kullanıcı doktor değil." });
-    }
+        // 1) Hasta ve Doktor rolleri kontrolü
+        var doctorUser = await _manager.User.GetUserByIdAsync(request.DoctorId);
+        if (doctorUser == null || doctorUser.Role != "Doctor")
+        {
+            return BadRequest(new { error = "Geçersiz doktor ID veya kullanıcı doktor değil." });
+        }
 
-    var patientUser = await _manager.User.GetUserByIdAsync(request.PatientId);
-    if (patientUser == null || patientUser.Role != "Patient")
-    {
-        return BadRequest(new { error = "Geçersiz hasta ID veya kullanıcı hasta değil." });
-    }
+        var patientUser = await _manager.User.GetUserByIdAsync(request.PatientId);
+        if (patientUser == null || patientUser.Role != "Patient")
+        {
+            return BadRequest(new { error = "Geçersiz hasta ID veya kullanıcı hasta değil." });
+        }
 
-    // 2) Aynı ID ile randevu oluşturulmasın
+        // 2) Aynı ID ile randevu oluşturulmasın
     if (request.DoctorId == request.PatientId)
     {
         return BadRequest(new { error = "Doktor ve hasta aynı olamaz." });

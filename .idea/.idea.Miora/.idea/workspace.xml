@@ -10,7 +10,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbd76e13-e5e6-40c3-8e04-27670e125a0b" name="Changes" comment="" />
+    <list default="true" id="fbd76e13-e5e6-40c3-8e04-27670e125a0b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Services/AppointmentManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Services/AvailabilityManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Services/Contracts/IAppointmentService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Services/Contracts/IAvailabilityService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Services/Contracts/IServiceManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Services/ServiceManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/DataTransferObjects/AppointmentDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/DataTransferObjects/AppointmentDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/DataTransferObjects/AvailabilityDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/DataTransferObjects/AvailabilityDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/Controllers/AppointmentController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/Controllers/AppointmentController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presentation/Controllers/AvailabilityController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/Controllers/AvailabilityController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi/Extensions/ServicesExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/Extensions/ServicesExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/Program.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,19 +32,26 @@
   <component name="DpaMonitoringSettings">
     <option name="autoShow" value="false" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2ua7FDKGey5lxDcAVvyFa6gvGM2" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Launch Settings Profile.WebApi: http.executor": "Debug",
+    ".NET Launch Settings Profile.WebApi: http.executor": "Run",
     ".NET Launch Settings Profile.WebApi: https.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "v2ServiceImplementation",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -119,7 +139,7 @@
       <option name="presentableId" value="Default" />
       <updated>1742474725862</updated>
       <workItem from="1742474726961" duration="24663000" />
-      <workItem from="1742593122482" duration="6975000" />
+      <workItem from="1742593122482" duration="25241000" />
     </task>
     <servers />
   </component>
@@ -129,50 +149,5 @@
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Presentation/Controllers/AppointmentController.cs</url>
-          <line>32</line>
-          <properties documentPath="$PROJECT_DIR$/Presentation/Controllers/AppointmentController.cs" containingFunctionPresentation="Method 'BookAppointment'">
-            <startOffsets>
-              <option value="979" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1055" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Presentation/Controllers/AppointmentController.cs</url>
-          <line>33</line>
-          <properties documentPath="$PROJECT_DIR$/Presentation/Controllers/AppointmentController.cs" containingFunctionPresentation="Method 'BookAppointment'">
-            <startOffsets>
-              <option value="1068" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1069" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Presentation/Controllers/AppointmentController.cs</url>
-          <line>36</line>
-          <properties documentPath="$PROJECT_DIR$/Presentation/Controllers/AppointmentController.cs" containingFunctionPresentation="Method 'BookAppointment'">
-            <startOffsets>
-              <option value="1119" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1367" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
