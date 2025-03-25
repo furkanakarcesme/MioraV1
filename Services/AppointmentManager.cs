@@ -67,7 +67,7 @@ public class AppointmentManager : IAppointmentService
     
     
     // Yeni metot
-    public async Task<List<AppointmentDto>> GetPastAppointmentsByPatientId(int patientId)
+    public async Task<List<PastAppointmentsDto>> GetPastAppointmentsByPatientId(int patientId)
     {
         // 1) Kullanıcı var mı ve gerçekten "Patient" mı?
         var user = await _repository.User.GetUserByIdAsync(patientId);
@@ -78,7 +78,7 @@ public class AppointmentManager : IAppointmentService
         var appointments = await _repository.Appointment.GetPastAppointmentsByPatientIdAsync(patientId);
 
         // 3) Appointment → AppointmentDto map
-        var resultDtos = appointments.Select(a => new AppointmentDto
+        var resultDtos = appointments.Select(a => new PastAppointmentsDto
         {
             Id = a.Id,
             PatientId = a.PatientId,
@@ -87,7 +87,11 @@ public class AppointmentManager : IAppointmentService
             DoctorName = a.Doctor?.Name,
             AvailabilityId = a.AvailabilityId,
             AppointmentDate = a.AppointmentDate,
-            IsCanceled = a.IsCanceled
+            IsCanceled = a.IsCanceled,
+            
+            // Availability'den slot saatleri
+            SlotStartTime = a.Availability?.StartTime,
+            SlotEndTime = a.Availability?.EndTime
         }).ToList();
 
         return resultDtos;

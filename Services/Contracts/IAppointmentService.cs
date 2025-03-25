@@ -6,6 +6,6 @@ public interface IAppointmentService
 {
     Task<AppointmentDto> BookAppointment(BookAppointmentRequest request);
 
-    Task<List<AppointmentDto>> GetPastAppointmentsByPatientId(int patientId);
+    Task<List<PastAppointmentsDto>> GetPastAppointmentsByPatientId(int patientId);
 
 }
