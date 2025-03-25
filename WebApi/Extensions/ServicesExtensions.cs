@@ -24,6 +24,7 @@ public static class ServicesExtensions
     {
         services.AddScoped<IAvailabilityRepository, AvailabilityRepository>();
         services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
     }
     
 }
