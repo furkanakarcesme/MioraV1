@@ -78,4 +78,88 @@ public class AvailabilityManager : IAvailabilityService
 
         return totalSlots;
     }
+    
+    
+    public async Task<List<AvailabilityDto>> SearchAvailabilityAsync(SearchAvailabilityRequest request)
+    {
+        if (request.DoctorId.HasValue && !request.HospitalId.HasValue)
+            throw new ArgumentException("Hospital seçilmeden doktor seçilemez.");
+    
+        // 1) Tarih Aralığını Hazırla
+        var start = request.StartDate ?? DateTime.Today;
+        var end = request.EndDate ?? DateTime.Today.AddDays(10);
+    
+        // 3) 10 gün sınırı
+        var maxAllowed = start.AddDays(10);
+        if (end > maxAllowed)
+        {
+            // Seçenek A: Fazlasını kes
+            end = maxAllowed;
+
+            // Seçenek B: Hata fırlatmak isterseniz:
+            //throw new ArgumentException("En fazla 10 günlük aralık seçilebilir.");
+        }
+
+        // 2) Filtreye Uygun Doktorları Bul
+        //    (UserRepository içinde "GetDoctorsByFiltersAsync" gibi bir metod yazacağız.
+        //     Orada city/district/hospital/clinic/doctlorId sorgusu yapabiliriz.)
+        var doctors = await _repository.User.GetDoctorsByFiltersAsync(
+            cityId: request.CityId,
+            districtId: request.DistrictId,
+            hospitalId: request.HospitalId,
+            clinicId: request.ClinicId,
+            doctorId: request.DoctorId
+        );
+
+        if (doctors.Count == 0)
+            return new List<AvailabilityDto>(); // Hiç doktor yoksa boş döneriz
+
+        // 3) Her Doktor İçin "Lazy Creation" Slotları Al
+        //    (Böylece slot yoksa oluşturulacak.)
+        var allSlots = new List<Availability>();
+        foreach (var doc in doctors)
+        {
+            // doc.Id => DoctorId
+            var slotsForDoc = await GetAvailabilitiesWithLazyCreation(doc.Id, start, end);
+            allSlots.AddRange(slotsForDoc);
+        }
+
+        // 4) allSlots listesini, istenirse tek sefer daha filtreleyebiliriz:
+        //    (Örneğin "sadece isDeleted=false" vs.)
+        //    "start/end" zaten "lazy creation" sırasında kullanıldı, 
+        //    ama tekrar "AvailableDate" >= start & <= end diyerek
+        //    tam bir kesişim elde edebilirsiniz.
+        var finalSlots = allSlots
+            .Where(a => a.AvailableDate >= start && a.AvailableDate <= end)
+            .ToList();
+
+        // 5) Entity -> DTO
+        //    Burada "a.Doctor.Hospital, a.Doctor.Clinic, a.Doctor.Name" gibi bilgilere 
+        //    ihtiyaç varsa INCLUDE etmeniz gerekli:
+        //    Örneğin: ".Include(a => a.Doctor).ThenInclude(d => d.Hospital)" vb. 
+        //    Ama "GetAvailabilitiesWithLazyCreation" şu anda .Include yapmıyor. 
+        //    Yani "a.Doctor" null gelebilir. Eager load veya lazy load ayarınıza bağlı.
+
+        var result = finalSlots.Select(a => new AvailabilityDto
+        {
+            Id = a.Id,
+            DoctorId = a.DoctorId,
+            DoctorName = a.Doctor?.Name,
+            AvailableDate = a.AvailableDate,
+            StartTime = a.StartTime,
+            EndTime = a.EndTime,
+            IsDeleted = a.IsDeleted,
+            IsBooked = a.IsBooked
+            // "HospitalName = a.Doctor.Hospital.Name" veya 
+            // "ClinicName = a.Doctor.Clinic.Name" diyebilirsiniz.
+        }).ToList();
+
+        // 6) Tarih + Saat sırasına göre sıralamak isterseniz
+        result = result
+            .OrderBy(r => r.AvailableDate)
+            .ThenBy(r => r.StartTime)
+            .ToList();
+
+        return result;
+        }
 }

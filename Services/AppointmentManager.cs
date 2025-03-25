@@ -94,6 +94,13 @@ public class AppointmentManager : IAppointmentService
             SlotEndTime = a.Availability?.EndTime
         }).ToList();
 
+       var a =  resultDtos; 
+        // 4) Sıralama: Önce AppointmentDate, sonra SlotStartTime
+        resultDtos = resultDtos
+            .OrderByDescending(dto => dto.AppointmentDate)        // Tarih bazında
+            .ThenByDescending(dto => dto.SlotStartTime)          // Aynı günde saat bazında
+            .ToList();
+        
         return resultDtos;
     }
 }
