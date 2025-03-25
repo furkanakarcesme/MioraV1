@@ -11,18 +11,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fbd76e13-e5e6-40c3-8e04-27670e125a0b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Services/AppointmentManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Services/AvailabilityManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Services/Contracts/IAppointmentService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Services/Contracts/IAvailabilityService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Services/Contracts/IServiceManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Services/ServiceManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/DataTransferObjects/AppointmentDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/DataTransferObjects/AppointmentDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/DataTransferObjects/AvailabilityDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/DataTransferObjects/AvailabilityDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Presentation/Controllers/AppointmentController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/Controllers/AppointmentController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Presentation/Controllers/AvailabilityController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Presentation/Controllers/AvailabilityController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebApi/Extensions/ServicesExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/Extensions/ServicesExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebApi/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/bin/Debug/net8.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/bin/Debug/net8.0/Entities.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/bin/Debug/net8.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/bin/Debug/net8.0/Entities.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/obj/Debug/net8.0/Entities.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/obj/Debug/net8.0/Entities.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/obj/Debug/net8.0/Entities.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/obj/Debug/net8.0/Entities.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/obj/Debug/net8.0/Entities.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/obj/Debug/net8.0/Entities.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/obj/Debug/net8.0/Entities.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/obj/Debug/net8.0/Entities.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/obj/Debug/net8.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/obj/Debug/net8.0/Entities.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/obj/Debug/net8.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/obj/Debug/net8.0/Entities.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/obj/Debug/net8.0/ref/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/obj/Debug/net8.0/ref/Entities.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/obj/Debug/net8.0/refint/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/obj/Debug/net8.0/refint/Entities.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/bin/Debug/net8.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/bin/Debug/net8.0/Entities.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/bin/Debug/net8.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/bin/Debug/net8.0/Entities.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/bin/Debug/net8.0/Repositories.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/bin/Debug/net8.0/Repositories.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/bin/Debug/net8.0/Repositories.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/bin/Debug/net8.0/Repositories.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/Repositories.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/ref/Repositories.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/ref/Repositories.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/refint/Repositories.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/obj/Debug/net8.0/refint/Repositories.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/obj/Debug/net8.0/Services.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/obj/Debug/net8.0/Services.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/obj/Debug/net8.0/Services.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Services/obj/Debug/net8.0/Services.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/obj/Debug/net8.0/Services.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Services/obj/Debug/net8.0/Services.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/obj/Debug/net8.0/Services.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Services/obj/Debug/net8.0/Services.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/obj/Debug/net8.0/Services.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/Services/obj/Debug/net8.0/Services.sourcelink.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +50,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -48,10 +64,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Launch Settings Profile.WebApi: http.executor": "Run",
+    ".NET Launch Settings Profile.WebApi: http.executor": "Debug",
     ".NET Launch Settings Profile.WebApi: https.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "v2ServiceImplementation",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -139,15 +154,110 @@
       <option name="presentableId" value="Default" />
       <updated>1742474725862</updated>
       <workItem from="1742474726961" duration="24663000" />
-      <workItem from="1742593122482" duration="25241000" />
+      <workItem from="1742593122482" duration="34991000" />
     </task>
+    <task id="LOCAL-00001" summary="Update">
+      <option name="closed" value="true" />
+      <created>1742851589525</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1742851589525</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Appointment Controller">
+      <option name="closed" value="true" />
+      <created>1742852003067</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1742852003067</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Service implementation for two entities">
+      <option name="closed" value="true" />
+      <created>1742854430296</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1742854430296</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Managers done">
+      <option name="closed" value="true" />
+      <created>1742856720117</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1742856720117</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Update" />
+    <MESSAGE value="Appointment Controller" />
+    <MESSAGE value="Service implementation for two entities" />
+    <MESSAGE value="Managers done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Managers done" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Presentation/Controllers/AppointmentController.cs</url>
+          <line>59</line>
+          <properties documentPath="$PROJECT_DIR$/Presentation/Controllers/AppointmentController.cs" containingFunctionPresentation="Method 'GetPastAppointmentsByPatient'">
+            <startOffsets>
+              <option value="1791" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1880" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Repositories/EFCore/AppointmentRepository.cs</url>
+          <line>24</line>
+          <properties documentPath="$PROJECT_DIR$/Repositories/EFCore/AppointmentRepository.cs" containingFunctionPresentation="Method 'GetPastAppointmentsByPatientIdAsync'">
+            <startOffsets>
+              <option value="670" />
+            </startOffsets>
+            <endOffsets>
+              <option value="984" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Services/AppointmentManager.cs</url>
+          <line>77</line>
+          <properties documentPath="$PROJECT_DIR$/Services/AppointmentManager.cs" containingFunctionPresentation="Method 'GetPastAppointmentsByPatientId'">
+            <startOffsets>
+              <option value="2852" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2948" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

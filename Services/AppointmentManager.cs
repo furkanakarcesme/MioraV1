@@ -63,4 +63,33 @@ public class AppointmentManager : IAppointmentService
 
         return appointmentDto;
     }
+    
+    
+    
+    // Yeni metot
+    public async Task<List<AppointmentDto>> GetPastAppointmentsByPatientId(int patientId)
+    {
+        // 1) Kullanıcı var mı ve gerçekten "Patient" mı?
+        var user = await _repository.User.GetUserByIdAsync(patientId);
+        if (user == null || user.Role != "Patient")
+            throw new ArgumentException("Geçersiz hasta ID veya kullanıcı hasta değil.");
+
+        // 2) Repo'dan geçmiş randevuları çek
+        var appointments = await _repository.Appointment.GetPastAppointmentsByPatientIdAsync(patientId);
+
+        // 3) Appointment → AppointmentDto map
+        var resultDtos = appointments.Select(a => new AppointmentDto
+        {
+            Id = a.Id,
+            PatientId = a.PatientId,
+            PatientName = a.Patient?.Name,
+            DoctorId = a.DoctorId,
+            DoctorName = a.Doctor?.Name,
+            AvailabilityId = a.AvailabilityId,
+            AppointmentDate = a.AppointmentDate,
+            IsCanceled = a.IsCanceled
+        }).ToList();
+
+        return resultDtos;
+    }
 }
