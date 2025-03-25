@@ -154,7 +154,7 @@
       <option name="presentableId" value="Default" />
       <updated>1742474725862</updated>
       <workItem from="1742474726961" duration="24663000" />
-      <workItem from="1742593122482" duration="34991000" />
+      <workItem from="1742593122482" duration="44846000" />
     </task>
     <task id="LOCAL-00001" summary="Update">
       <option name="closed" value="true" />
@@ -229,33 +229,46 @@
               <option value="1880" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Repositories/EFCore/AppointmentRepository.cs</url>
-          <line>24</line>
-          <properties documentPath="$PROJECT_DIR$/Repositories/EFCore/AppointmentRepository.cs" containingFunctionPresentation="Method 'GetPastAppointmentsByPatientIdAsync'">
-            <startOffsets>
-              <option value="670" />
-            </startOffsets>
-            <endOffsets>
-              <option value="984" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="27" />
+          <option name="timeStamp" value="29" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Services/AppointmentManager.cs</url>
           <line>77</line>
           <properties documentPath="$PROJECT_DIR$/Services/AppointmentManager.cs" containingFunctionPresentation="Method 'GetPastAppointmentsByPatientId'">
             <startOffsets>
-              <option value="2852" />
+              <option value="2857" />
             </startOffsets>
             <endOffsets>
-              <option value="2948" />
+              <option value="2953" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="28" />
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Services/AppointmentManager.cs</url>
+          <line>103</line>
+          <properties documentPath="$PROJECT_DIR$/Services/AppointmentManager.cs" containingFunctionPresentation="Method 'GetPastAppointmentsByPatientId'">
+            <startOffsets>
+              <option value="3928" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3946" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Services/AppointmentManager.cs</url>
+          <line>96</line>
+          <properties documentPath="$PROJECT_DIR$/Services/AppointmentManager.cs" containingFunctionPresentation="Method 'GetPastAppointmentsByPatientId'">
+            <startOffsets>
+              <option value="3593" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3613" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

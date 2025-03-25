@@ -35,4 +35,21 @@ public class AvailabilityController : ControllerBase
         }
     }
     
+    [HttpPost("search")]
+    public async Task<IActionResult> SearchAvailability([FromBody] SearchAvailabilityRequest request)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        try
+        {
+            var results = await _service.AvailabilityManager.SearchAvailabilityAsync(request);
+            return Ok(results);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { error = ex.Message });
+        }
+    }
+    
 }
