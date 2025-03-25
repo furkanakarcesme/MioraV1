@@ -23,13 +23,14 @@ public class AppointmentRepository : IAppointmentRepository
     {
         var now = DateTime.Now; // veya DateTime.Today, vs.
         return await _context.Appointments
-            // .Where(a => 
-            //     a.PatientId == patientId &&
-            //     a.AppointmentDate < now &&
-            //     a.IsCanceled == false
-            // )
+            .Where(a => 
+                a.PatientId == patientId &&
+                a.AppointmentDate.Day < now.Day &&
+                a.IsCanceled == false
+            )
             .Include(a => a.Patient)
             .Include(a => a.Doctor)
+            .Include(a => a.Availability) // <-- Yeni Eklendi
             .ToListAsync();
     }
 }
