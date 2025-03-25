@@ -25,7 +25,7 @@ public class AvailabilityController : ControllerBase
         try
         {
             // 2) Servis çağır
-            var slotsDto = await _service.AvailabilityService.GetAvailableSlots(doctorId, startDate, endDate);
+            var slotsDto = await _service.AvailabilityManager.GetAvailableSlots(doctorId, startDate, endDate);
             return Ok(slotsDto);
         }
         catch (ArgumentException ex)
