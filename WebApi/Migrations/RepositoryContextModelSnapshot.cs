@@ -39,10 +39,10 @@ namespace WebApi.Migrations
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsCanceled")
-                        .HasColumnType("bit");
-
                     b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -59,11 +59,11 @@ namespace WebApi.Migrations
                         new
                         {
                             Id = 1,
-                            AppointmentDate = new DateTime(2025, 3, 23, 23, 57, 14, 153, DateTimeKind.Local).AddTicks(8890),
+                            AppointmentDate = new DateTime(2025, 3, 27, 22, 49, 0, 500, DateTimeKind.Local).AddTicks(8150),
                             AvailabilityId = 1,
                             DoctorId = 2,
-                            IsCanceled = false,
-                            PatientId = 3
+                            PatientId = 3,
+                            Status = 0
                         });
                 });
 
@@ -103,7 +103,7 @@ namespace WebApi.Migrations
                         new
                         {
                             Id = 1,
-                            AvailableDate = new DateTime(2025, 3, 23, 23, 57, 14, 154, DateTimeKind.Local).AddTicks(170),
+                            AvailableDate = new DateTime(2025, 3, 27, 22, 49, 0, 500, DateTimeKind.Local).AddTicks(9390),
                             DoctorId = 2,
                             EndTime = new TimeSpan(0, 17, 0, 0, 0),
                             IsBooked = false,

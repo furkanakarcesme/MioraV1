@@ -1,4 +1,5 @@
 using Entities.DataTransferObjects;
+using Entities.Enums;
 using Entities.Models;
 using Repositories.Contracts;
 using Services.Contracts;
@@ -40,7 +41,8 @@ public class AppointmentManager : IAppointmentService
             DoctorId = request.DoctorId,
             AvailabilityId = slot.Id,
             AppointmentDate = request.AppointmentDate,
-            IsCanceled = false
+            //IsCanceled = false
+            Status = AppointmentStatus.Scheduled
         };
 
         // 4) DB'ye kaydet
@@ -58,7 +60,8 @@ public class AppointmentManager : IAppointmentService
             DoctorName = doctorUser.Name,
             AvailabilityId = appointment.AvailabilityId,
             AppointmentDate = appointment.AppointmentDate,
-            IsCanceled = appointment.IsCanceled
+            //IsCanceled = appointment.IsCanceled
+            Status = appointment.Status
         };
 
         return appointmentDto;
@@ -77,6 +80,26 @@ public class AppointmentManager : IAppointmentService
         // 2) Repo'dan geçmiş randevuları çek
         var appointments = await _repository.Appointment.GetPastAppointmentsByPatientIdAsync(patientId);
 
+        // ==> BURADA "dinamik completed" kontrolü <==
+        foreach (var app in appointments)
+        {
+            // Sadece Status = Scheduled ise kontrol et. 
+            // (Canceled zaten iptal, Completed belki manuel set edilmiş olabilir)
+            if (app.Status == AppointmentStatus.Scheduled)
+            {
+                // Randevu bitiş zamanı = AppointmentDate + slot endTime
+                var endDateTime = app.AppointmentDate.Date 
+                                  + (app.Availability?.EndTime ?? TimeSpan.Zero);
+
+                // endDateTime şimdiki zamandan eskiyse --> Completed varsay
+                if (endDateTime < DateTime.Now)
+                {
+                    // Bu şekilde, DB'ye kaydetmeden bellek üstünde updated
+                    app.Status = AppointmentStatus.Completed;
+                }
+            }
+        }
+        
         // 3) Appointment → AppointmentDto map
         var resultDtos = appointments.Select(a => new PastAppointmentsDto
         {
@@ -87,7 +110,8 @@ public class AppointmentManager : IAppointmentService
             DoctorName = a.Doctor?.Name,
             AvailabilityId = a.AvailabilityId,
             AppointmentDate = a.AppointmentDate,
-            IsCanceled = a.IsCanceled,
+            //güncelleme
+            Status = a.Status,
             
             // Availability'den slot saatleri
             SlotStartTime = a.Availability?.StartTime,
