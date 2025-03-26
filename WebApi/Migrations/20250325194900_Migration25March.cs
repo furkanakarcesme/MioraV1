@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class MigratOne : Migration
+    public partial class Migration25March : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -176,7 +176,7 @@ namespace WebApi.Migrations
                     DoctorId = table.Column<int>(type: "int", nullable: false),
                     AvailabilityId = table.Column<int>(type: "int", nullable: false),
                     AppointmentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsCanceled = table.Column<bool>(type: "bit", nullable: false)
+                    Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -266,12 +266,12 @@ namespace WebApi.Migrations
             migrationBuilder.InsertData(
                 table: "Availabilities",
                 columns: new[] { "Id", "AvailableDate", "DoctorId", "EndTime", "IsBooked", "IsDeleted", "StartTime" },
-                values: new object[] { 1, new DateTime(2025, 3, 23, 23, 57, 14, 154, DateTimeKind.Local).AddTicks(170), 2, new TimeSpan(0, 17, 0, 0, 0), false, false, new TimeSpan(0, 9, 0, 0, 0) });
+                values: new object[] { 1, new DateTime(2025, 3, 27, 22, 49, 0, 500, DateTimeKind.Local).AddTicks(9390), 2, new TimeSpan(0, 17, 0, 0, 0), false, false, new TimeSpan(0, 9, 0, 0, 0) });
 
             migrationBuilder.InsertData(
                 table: "Appointments",
-                columns: new[] { "Id", "AppointmentDate", "AvailabilityId", "DoctorId", "IsCanceled", "PatientId" },
-                values: new object[] { 1, new DateTime(2025, 3, 23, 23, 57, 14, 153, DateTimeKind.Local).AddTicks(8890), 1, 2, false, 3 });
+                columns: new[] { "Id", "AppointmentDate", "AvailabilityId", "DoctorId", "PatientId", "Status" },
+                values: new object[] { 1, new DateTime(2025, 3, 27, 22, 49, 0, 500, DateTimeKind.Local).AddTicks(8150), 1, 2, 3, 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Appointments_AvailabilityId",
