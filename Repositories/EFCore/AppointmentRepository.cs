@@ -18,6 +18,16 @@ public class AppointmentRepository : IAppointmentRepository
         await _context.Appointments.AddAsync(appointment);
     }
     
+    public async Task<Appointment?> GetAppointmentByIdAsync(int appointmentId)
+    {
+        // Randevuyu çekip "Availability" dahil her şeyi ekleyebilirsiniz:
+        return await _context.Appointments
+            .Include(a => a.Patient)
+            .Include(a => a.Doctor)
+            .Include(a => a.Availability)
+            .FirstOrDefaultAsync(a => a.Id == appointmentId);
+    }
+    
     // Yeni metot
     public async Task<List<Appointment>> GetPastAppointmentsByPatientIdAsync(int patientId)
     {
