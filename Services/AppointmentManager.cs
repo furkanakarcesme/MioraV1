@@ -120,6 +120,52 @@ public class AppointmentManager : IAppointmentService
         return resultDtos;
     }
     
+    public async Task<AppointmentDto> CancelAppointmentAsync(CancelAppointmentRequest request)
+    {
+        // 1) Randevuyu repo'dan çek
+        var appointment = await _repository.Appointment.GetAppointmentByIdAsync(request.AppointmentId);
+        if (appointment == null)
+            throw new ArgumentException("Geçersiz appointment ID.");
+
+        // 2) Randevu zaten iptal mi, completed mi?
+        if (appointment.Status == AppointmentStatus.Canceled)
+            throw new ArgumentException("Randevu zaten iptal edilmiş.");
+        if (appointment.Status == AppointmentStatus.Completed)
+            throw new ArgumentException("Tamamlanmış randevu iptal edilemez.");
+
+        // 3) Durumu iptal et
+        appointment.Status = AppointmentStatus.Canceled;
+
+        // 4) Slot'u tekrar açmak (opsiyonel)
+        //    Appointment zaten AvailabilityId içeriyorsa 
+        //    "request.AvailabilityId" kullanmasak da olur.
+        var slotId = appointment.AvailabilityId;
+        if (slotId > 0) // slot var
+        {
+            var slot = await _repository.Availability.GetAvailabilityByIdAsync(slotId);
+            if (slot != null)
+            {
+                slot.IsBooked = false; // Tekrar aç
+            }
+        }
+
+        await _repository.SaveAsync();
+
+        // 5) Entity -> DTO
+        var dto = new AppointmentDto
+        {
+            Id = appointment.Id,
+            PatientId = appointment.PatientId,
+            PatientName = appointment.Patient?.Name,   // isterseniz
+            DoctorId = appointment.DoctorId,
+            DoctorName = appointment.Doctor?.Name,     // isterseniz
+            AvailabilityId = appointment.AvailabilityId,
+            AppointmentDate = appointment.AppointmentDate,
+            Status = appointment.Status
+        };
+
+        return dto;
+    }
     /*public async Task<AppointmentDto> BookAppointment(BookAppointmentRequest request)
     {
         // 1) Doktor / Hasta kontrolü

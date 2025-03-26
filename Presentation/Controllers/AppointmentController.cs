@@ -69,6 +69,27 @@ namespace Presentation.Controllers
             }
         }
         
+        [HttpPost("cancel")]
+        public async Task<IActionResult> CancelAppointment([FromBody] CancelAppointmentRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                var result = await _service.AppointmentManager.CancelAppointmentAsync(request);
+                return Ok(new 
+                { 
+                    message = "Randevu başarıyla iptal edildi.", 
+                    appointment = result 
+                });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+        
         
     }
         //Local Commit Deneme 
