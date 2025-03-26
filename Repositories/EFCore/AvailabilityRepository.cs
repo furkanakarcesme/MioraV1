@@ -42,5 +42,11 @@ public class AvailabilityRepository : IAvailabilityRepository
                 a.IsBooked == false
             );
     }
+    
+    public async Task<Availability?> GetAvailabilityByIdAsync(int slotId)
+    {
+        return await _context.Availabilities
+            .FirstOrDefaultAsync(a => a.Id == slotId);
+    }
 }
 

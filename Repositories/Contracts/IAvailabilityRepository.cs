@@ -10,4 +10,7 @@ public interface IAvailabilityRepository
 
     Task<Availability?> GetAvailabilityByDoctorAndTime(int doctorId, DateTime date, TimeSpan startTime);
 
+    Task<Availability?> GetAvailabilityByIdAsync(int slotId);
+
+
 }
