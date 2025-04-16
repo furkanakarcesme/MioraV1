@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Entities.DataTransferObjects;
-using Entities.Models;
-using Repositories.Contracts;
 using Services.Contracts;
 
 
