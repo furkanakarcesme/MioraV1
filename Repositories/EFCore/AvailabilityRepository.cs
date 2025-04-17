@@ -17,10 +17,23 @@ public class AvailabilityRepository : IAvailabilityRepository
 
     
     // Yalnızca tek bir güne ait slotlar
+    /*
     public async Task<List<Availability>> GetAvailabilitiesForDoctorAndDay(int doctorId, DateTime day)
     {
         return await _context.Availabilities
             .Where(a => a.DoctorId == doctorId && a.AvailableDate.Date == day.Date)
+            .ToListAsync();
+    }
+    */
+    public async Task<List<Availability>> GetAvailabilitiesForDoctorAndDay(
+        int doctorId, DateTime day)
+    {
+        return await _context.Availabilities
+            .Include(a => a.Doctor)                 //  DoctorName / Hospital vb.
+            .Where(a => a.DoctorId        == doctorId &&
+                        a.AvailableDate.Date == day.Date &&
+                        !a.IsDeleted &&
+                        !a.IsBooked)               //  ➜  Sadece boş slot
             .ToListAsync();
     }
     
