@@ -19,6 +19,10 @@ namespace Repositories.EFCore
             return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
         }
 
+       
+
+
+        /*
         public async Task<List<User>> GetDoctorsByFiltersAsync(int cityId,int clinicId, int? districtId, int? hospitalId, int? doctorId)
         {
             // Doktorları çekiyoruz, Hospital ve Clinic ile District'lerini de include ediyoruz.
@@ -66,6 +70,42 @@ namespace Repositories.EFCore
             return await query.ToListAsync();
         }
 
+        */
         
+        public async Task<List<User>> GetDoctorsByFiltersAsync(
+            int cityId,          // zorunlu
+            int clinicId,        // zorunlu
+            int? districtId,     // ← BURAYI ZORUNLU YAPACAĞIZ
+            int? hospitalId,
+            int? doctorId)
+        {
+            var query = _context.Users
+                .Where(u => u.Role == "Doctor")
+                .Include(u => u.Hospital).ThenInclude(h => h.District)
+                .Include(u => u.Clinic)  .ThenInclude(c => c.District)
+                .AsQueryable();
+
+            /* 1 – Şehir sabit: */
+            query = query.Where(u => u.Clinic.District.CityId == cityId);
+
+            /* 2 – Klinik sabit:  */
+            query = query.Where(u => u.ClinicId == clinicId);
+
+            /* 3 – İLÇE  →  artık ZORUNLU  */
+            if (!districtId.HasValue)
+                throw new ArgumentException("İlçe (district) seçilmeden arama yapılamaz.");
+
+            query = query.Where(u => u.Clinic.DistrictId == districtId.Value);
+
+            /* 4 – Opsiyonel ek filtreler */
+            if (hospitalId.HasValue)
+                query = query.Where(u => u.HospitalId == hospitalId.Value);
+
+            if (doctorId.HasValue)
+                query = query.Where(u => u.Id == doctorId.Value);
+
+            return await query.OrderBy(u => u.Name).ToListAsync();
+        }
+    
     }
 }
