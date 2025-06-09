@@ -6,6 +6,7 @@ using Entities.Models;
 using Repositories.EFCore;
 using System.Text;
 using WebApi.Utilities;
+using WebApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,7 +59,7 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         ValidIssuer = jwtSettings["Issuer"],
         ValidAudience = jwtSettings["Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Secret"]))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Secret"]!))
     };
 });
 

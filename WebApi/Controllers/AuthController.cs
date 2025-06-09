@@ -38,7 +38,7 @@ namespace WebApi.Controllers
         [HttpPost("refresh")]
         public async Task<IActionResult> Refresh([FromBody] TokenDto tokenDto)
         {
-            var newTokens = await _authService.RefreshTokenAsync(tokenDto.RefreshToken);
+            var newTokens = await _authService.RefreshTokenAsync(tokenDto);
             if (newTokens == null)
                 return BadRequest("Invalid refresh token.");
             return Ok(newTokens);

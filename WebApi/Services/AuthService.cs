@@ -56,13 +56,17 @@ namespace WebApi.Services
             return new TokenDto { AccessToken = accessToken, RefreshToken = refreshToken };
         }
 
-        public async Task<TokenDto?> RefreshTokenAsync(string token)
+        public async Task<TokenDto?> RefreshTokenAsync(TokenDto tokenDto)
         {
-            var principal = GetPrincipalFromExpiredToken(token);
+            var principal = GetPrincipalFromExpiredToken(tokenDto.AccessToken);
             var userEmail = principal.Identity?.Name;
+            
+            if (userEmail is null)
+                return null;
+
             var user = await _userManager.FindByEmailAsync(userEmail);
 
-            if (user == null || user.RefreshToken != token || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+            if (user == null || user.RefreshToken != tokenDto.RefreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
                 return null;
 
             var roles = await _userManager.GetRolesAsync(user);
@@ -80,8 +84,8 @@ namespace WebApi.Services
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(ClaimTypes.Name, user.Name ?? "")
+                new Claim(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
+                new Claim(ClaimTypes.Name, user.UserName ?? string.Empty)
             };
             foreach (var role in roles)
             {
