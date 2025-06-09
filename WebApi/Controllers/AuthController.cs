@@ -1,6 +1,8 @@
 using Entities.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Services;
+using Microsoft.AspNetCore.Identity;
+using Entities.Models;
 
 namespace WebApi.Controllers
 {
@@ -9,6 +11,7 @@ namespace WebApi.Controllers
     public class AuthController : ControllerBase
     {
         private readonly AuthService _authService;
+        
         public AuthController(AuthService authService)
         {
             _authService = authService;
@@ -30,6 +33,15 @@ namespace WebApi.Controllers
             if (token == null)
                 return Unauthorized();
             return Ok(token);
+        }
+
+        [HttpPost("refresh")]
+        public async Task<IActionResult> Refresh([FromBody] TokenDto tokenDto)
+        {
+            var newTokens = await _authService.RefreshTokenAsync(tokenDto.RefreshToken);
+            if (newTokens == null)
+                return BadRequest("Invalid refresh token.");
+            return Ok(newTokens);
         }
     }
 } 

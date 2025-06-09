@@ -63,6 +63,7 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.RegisterRepositories();
+builder.Services.AddScoped<AuthService>();
 
 var app = builder.Build();
 

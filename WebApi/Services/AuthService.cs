@@ -44,10 +44,35 @@ namespace WebApi.Services
             var user = await _userManager.FindByEmailAsync(dto.Email);
             if (user == null || !await _userManager.CheckPasswordAsync(user, dto.Password))
                 return null;
+
             var roles = await _userManager.GetRolesAsync(user);
-            var token = GenerateJwtToken(user, roles);
-            // Refresh token üretimi eklenebilir
-            return new TokenDto { AccessToken = token, RefreshToken = "dummy-refresh-token" };
+            var accessToken = GenerateJwtToken(user, roles);
+            var refreshToken = GenerateRefreshToken();
+
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(_jwtSettings.RefreshTokenExpirationDays);
+            await _userManager.UpdateAsync(user);
+
+            return new TokenDto { AccessToken = accessToken, RefreshToken = refreshToken };
+        }
+
+        public async Task<TokenDto?> RefreshTokenAsync(string token)
+        {
+            var principal = GetPrincipalFromExpiredToken(token);
+            var userEmail = principal.Identity?.Name;
+            var user = await _userManager.FindByEmailAsync(userEmail);
+
+            if (user == null || user.RefreshToken != token || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+                return null;
+
+            var roles = await _userManager.GetRolesAsync(user);
+            var newAccessToken = GenerateJwtToken(user, roles);
+            var newRefreshToken = GenerateRefreshToken();
+
+            user.RefreshToken = newRefreshToken;
+            await _userManager.UpdateAsync(user);
+
+            return new TokenDto { AccessToken = newAccessToken, RefreshToken = newRefreshToken };
         }
 
         private string GenerateJwtToken(User user, IList<string> roles)
@@ -68,10 +93,39 @@ namespace WebApi.Services
                 issuer: _jwtSettings.Issuer,
                 audience: _jwtSettings.Audience,
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(_jwtSettings.AccessTokenExpirationMinutes),
+                expires: DateTime.UtcNow.AddMinutes(_jwtSettings.AccessTokenExpirationMinutes),
                 signingCredentials: creds
             );
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        private string GenerateRefreshToken()
+        {
+            var randomNumber = new byte[32];
+            using (var rng = System.Security.Cryptography.RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(randomNumber);
+                return Convert.ToBase64String(randomNumber);
+            }
+        }
+
+        private ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
+        {
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateAudience = false,
+                ValidateIssuer = false,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret)),
+                ValidateLifetime = false 
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var securityToken);
+            if (securityToken is not JwtSecurityToken jwtSecurityToken || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+                throw new SecurityTokenException("Invalid token");
+
+            return principal;
         }
     }
 } 
