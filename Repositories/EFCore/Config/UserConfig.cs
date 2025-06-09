@@ -36,7 +36,7 @@ namespace Repositories.EFCore.Config
                 .OnDelete(DeleteBehavior.Restrict);
             
             // Seed data ekleme          
-            builder.HasData(
+            /*builder.HasData(
     new User { Id = 1, Name = "Dr. Kardiyoloji1_1", Email = "kardiyoloji1_1@example.com", Role = "Doctor", Specialization = "Kardiyoloji", ClinicId = 1, HospitalId = 1 },
     new User { Id = 2, Name = "Dr. Kardiyoloji2_1", Email = "kardiyoloji1_2@example.com", Role = "Doctor", Specialization = "Kardiyoloji", ClinicId = 1, HospitalId = 1 },
     new User { Id = 3, Name = "Dr. Kardiyoloji3_1", Email = "kardiyoloji1_3@example.com", Role = "Doctor", Specialization = "Kardiyoloji", ClinicId = 1, HospitalId = 1 },
@@ -1540,6 +1540,7 @@ namespace Repositories.EFCore.Config
     new User { Id = 1501, Name = "Admin", Email = "admin@mail.com", Role = "Admin" },
     new User { Id = 1502, Name = "Mehmet", Email = "mehmet@gmail.com", Role = "Patient" }
                 );
+                */
         }
     }
 }

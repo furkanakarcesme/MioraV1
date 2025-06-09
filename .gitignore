@@ -1,0 +1,9 @@
+bin/
+obj/
+.idea/
+*.user
+*.suo
+*.dll
+*.pdb
+*.cache
+*.sln.DotSettings.user 

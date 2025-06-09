@@ -26,10 +26,7 @@ namespace Repositories.EFCore.Config
                 .HasForeignKey(a => a.AvailabilityId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Seed data ekleme
-            builder.HasData(
-                new Appointment { Id = 1, PatientId = 3, DoctorId = 2, AvailabilityId = 1, AppointmentDate = DateTime.Now.AddDays(2), /*IsCanceled = false*/ Status = AppointmentStatus.Scheduled}
-            );
+            
         }
     }
 }
