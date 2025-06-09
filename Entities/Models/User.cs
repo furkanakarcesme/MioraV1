@@ -1,9 +1,9 @@
+using Microsoft.AspNetCore.Identity;
 namespace Entities.Models;
 
 
-public class User
+public class User : IdentityUser<int>
 {
-    public int Id { get; set; }
     public string Name { get; set; }
     public string Email { get; set; }
 
@@ -26,6 +26,10 @@ public class User
     public List<Availability> Availabilities { get; set; } = new();
 
     public bool IsDeleted { get; set; } = false;
+
+    // Identity için ek alanlar
+    public string? RefreshToken { get; set; }
+    public DateTime? RefreshTokenExpiryTime { get; set; }
 }
 
 /*

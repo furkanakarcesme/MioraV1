@@ -58,7 +58,6 @@
 /Users/furkanakarcesme/RiderProjects/Miora/WebApi/bin/Debug/net8.0/System.Composition.Runtime.dll
 /Users/furkanakarcesme/RiderProjects/Miora/WebApi/bin/Debug/net8.0/System.Composition.TypedParts.dll
 /Users/furkanakarcesme/RiderProjects/Miora/WebApi/bin/Debug/net8.0/System.Configuration.ConfigurationManager.dll
-/Users/furkanakarcesme/RiderProjects/Miora/WebApi/bin/Debug/net8.0/System.Diagnostics.DiagnosticSource.dll
 /Users/furkanakarcesme/RiderProjects/Miora/WebApi/bin/Debug/net8.0/System.Drawing.Common.dll
 /Users/furkanakarcesme/RiderProjects/Miora/WebApi/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
 /Users/furkanakarcesme/RiderProjects/Miora/WebApi/bin/Debug/net8.0/System.Linq.Dynamic.Core.dll
@@ -161,3 +160,8 @@
 /Users/furkanakarcesme/RiderProjects/Miora/WebApi/obj/Debug/net8.0/WebApi.genruntimeconfig.cache
 /Users/furkanakarcesme/RiderProjects/Miora/WebApi/obj/Debug/net8.0/ref/WebApi.dll
 /Users/furkanakarcesme/RiderProjects/Miora/WebApi/obj/Debug/net8.0/WebApi.sourcelink.json
+/Users/furkanakarcesme/RiderProjects/Miora/WebApi/bin/Debug/net8.0/WebApi.staticwebassets.endpoints.json
+/Users/furkanakarcesme/RiderProjects/Miora/WebApi/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/furkanakarcesme/RiderProjects/Miora/WebApi/bin/Debug/net8.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/Users/furkanakarcesme/RiderProjects/Miora/WebApi/obj/Debug/net8.0/staticwebassets.build.endpoints.json
+/Users/furkanakarcesme/RiderProjects/Miora/WebApi/obj/Debug/net8.0/staticwebassets/msbuild.WebApi.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
