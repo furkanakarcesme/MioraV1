@@ -225,9 +225,13 @@ public class AvailabilityManager : IAvailabilityService
                 Id           = a.Id,
                 DoctorId     = a.DoctorId,
                 DoctorName   = a.Doctor?.Name,
+                HospitalId   = a.Doctor?.HospitalId ?? 0,
+                HospitalName = a.Doctor?.Hospital?.Name ?? string.Empty,
                 AvailableDate= a.AvailableDate,
                 StartTime    = a.StartTime,
-                EndTime      = a.EndTime
+                EndTime      = a.EndTime,
+                IsDeleted    = a.IsDeleted,
+                IsBooked     = a.IsBooked
             }).OrderBy(r => r.AvailableDate)
             .ThenBy(r => r.StartTime)
             .ToList();

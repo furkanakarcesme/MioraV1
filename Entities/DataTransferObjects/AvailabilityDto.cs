@@ -10,4 +10,6 @@ public class AvailabilityDto
     public TimeSpan EndTime { get; set; }
     public bool IsDeleted { get; set; }
     public bool IsBooked { get; set; }
+    public int HospitalId { get; set; }
+    public string HospitalName { get; set; } = string.Empty;
 }
