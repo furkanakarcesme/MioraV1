@@ -46,6 +46,13 @@ namespace WebApi.Services
                 return null;
 
             var roles = await _userManager.GetRolesAsync(user);
+
+            // Doktorların giriş yapmasını engelle
+            if (roles.Contains("Doctor"))
+            {
+                return null;
+            }
+
             var accessToken = GenerateJwtToken(user, roles);
             var refreshToken = GenerateRefreshToken();
 

@@ -19,7 +19,6 @@ namespace Repositories.EFCore
 
         }
         
-        public DbSet<User> Users { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<District> Districts { get; set; }
         public DbSet<Hospital> Hospitals { get; set; }
@@ -30,6 +29,16 @@ namespace Repositories.EFCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(RepositoryContext).Assembly);        }
+            modelBuilder.ApplyConfiguration(new AppointmentConfig());
+            modelBuilder.ApplyConfiguration(new AvailabilityConfig());
+            modelBuilder.ApplyConfiguration(new CityConfig());
+            modelBuilder.ApplyConfiguration(new ClinicConfig());
+            modelBuilder.ApplyConfiguration(new ClinicHospitalConfig());
+            modelBuilder.ApplyConfiguration(new DistrictConfig());
+            modelBuilder.ApplyConfiguration(new HospitalConfig());
+            modelBuilder.ApplyConfiguration(new UserConfig());
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
+        }
     }
 }

@@ -50,7 +50,7 @@ namespace Repositories.EFCore
             }
 
             // 3) hospitalId opsiyonel
-            //    “Doktor HospitalId’si şu ise” şeklinde
+            //    "Doktor HospitalId'si şu ise" şeklinde
             if (hospitalId.HasValue)
             {
                 query = query.Where(u => u.HospitalId == hospitalId.Value);
@@ -75,29 +75,29 @@ namespace Repositories.EFCore
         public async Task<List<User>> GetDoctorsByFiltersAsync(
             int cityId,          // zorunlu
             int clinicId,        // zorunlu
-            int? districtId,     // ← BURAYI ZORUNLU YAPACAĞIZ
+            int? districtId,     // ← BURAYI ZORUNLU YAPACAĞIZ
             int? hospitalId,
             int? doctorId)
         {
             var query = _context.Users
                 .Where(u => u.Role == "Doctor")
-                .Include(u => u.Hospital).ThenInclude(h => h.District)
-                .Include(u => u.Clinic)  .ThenInclude(c => c.District)
+                .Include(u => u.Hospital!).ThenInclude(h => h.District)
+                .Include(u => u.Clinic!)  .ThenInclude(c => c.District)
                 .AsQueryable();
 
-            /* 1 – Şehir sabit: */
-            query = query.Where(u => u.Clinic.District.CityId == cityId);
+            /* 1 – Şehir sabit: */
+            query = query.Where(u => u.Clinic!.District!.CityId == cityId);
 
-            /* 2 – Klinik sabit:  */
+            /* 2 – Klinik sabit:  */
             query = query.Where(u => u.ClinicId == clinicId);
 
-            /* 3 – İLÇE  →  artık ZORUNLU  */
+            /* 3 – İLÇE  →  artık ZORUNLU  */
             if (!districtId.HasValue)
                 throw new ArgumentException("İlçe (district) seçilmeden arama yapılamaz.");
 
-            query = query.Where(u => u.Clinic.DistrictId == districtId.Value);
+            query = query.Where(u => u.Clinic!.DistrictId == districtId.Value);
 
-            /* 4 – Opsiyonel ek filtreler */
+            /* 4 – Opsiyonel ek filtreler */
             if (hospitalId.HasValue)
                 query = query.Where(u => u.HospitalId == hospitalId.Value);
 

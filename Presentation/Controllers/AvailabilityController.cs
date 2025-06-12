@@ -2,9 +2,11 @@ using Entities.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using Repositories.Contracts;
 using Services.Contracts;
+using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("api/availability")]
+[Authorize]
 public class AvailabilityController : ControllerBase
 {
     private readonly IServiceManager _service; // Değişiklik: IRepositoryManager yerine IServiceManager
@@ -30,7 +32,7 @@ public class AvailabilityController : ControllerBase
         }
         catch (ArgumentException ex)
         {
-            // Service’deki hata durumlarını yakalayıp 400 döndürüyoruz.
+            // Service'deki hata durumlarını yakalayıp 400 döndürüyoruz.
             return BadRequest(new { error = ex.Message });
         }
     }
