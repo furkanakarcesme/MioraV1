@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("api/dropdown")]
-[Authorize]
+//[Authorize]
 public class DropdownController : ControllerBase
 {
     private readonly IServiceManager _service; // Değişiklik: IRepositoryManager yerine IServiceManager

@@ -66,12 +66,12 @@ namespace WebApi.Services
         public async Task<TokenDto?> RefreshTokenAsync(TokenDto tokenDto)
         {
             var principal = GetPrincipalFromExpiredToken(tokenDto.AccessToken);
-            var userEmail = principal.Identity?.Name;
+            var userName = principal.Identity?.Name;
             
-            if (userEmail is null)
+            if (userName is null)
                 return null;
 
-            var user = await _userManager.FindByEmailAsync(userEmail);
+            var user = await _userManager.FindByNameAsync(userName);
 
             if (user == null || user.RefreshToken != tokenDto.RefreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
                 return null;

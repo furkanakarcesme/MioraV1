@@ -26,22 +26,30 @@ namespace Repositories.EFCore.Config
             var random = new Random();
 
             int userId = 6;
-            int totalHospitals = 45;
-            int totalClinics = 10;
+            int totalDistricts = 15;
+            int hospitalsPerDistrict = 3;
+            int clinicsPerDistrict = 10;
+            int totalHospitals = totalDistricts * hospitalsPerDistrict;
             var specializations = new[] { "Kardiyoloji", "Dahiliye", "Ortopedi", "Pediatri", "Dermatoloji", "Göz", "KBB", "Üroloji", "Kadın Doğum", "Nöroloji" };
 
             for (int hospitalId = 1; hospitalId <= totalHospitals; hospitalId++)
             {
-                for (int clinicId = 1; clinicId <= totalClinics; clinicId++)
+                int districtId = ((hospitalId - 1) / hospitalsPerDistrict) + 1;
+                
+                for (int clinicIndex = 0; clinicIndex < clinicsPerDistrict; clinicIndex++)
                 {
-                    for (int i = 1; i <= 3; i++)
+                    int uniqueClinicId = (districtId - 1) * clinicsPerDistrict + clinicIndex + 1;
+                    var specializationName = specializations[clinicIndex];
+
+                    for (int i = 0; i < 3; i++)
                     {
                         var firstName = firstNames[random.Next(firstNames.Length)];
                         var lastName = lastNames[random.Next(lastNames.Length)];
-                        var specialization = specializations[clinicId - 1];
                         var doctorName = $"Dr. {firstName} {lastName}";
-                        var email = $"{firstName.ToLower()}.{lastName.ToLower()}{userId}@example.com";
-                        
+                        var email = $"{firstName.ToLower()}.{lastName.ToLower()}{userId}@example.com"
+                            .Replace("ş", "s").Replace("ç", "c").Replace("ğ", "g")
+                            .Replace("ü", "u").Replace("ö", "o").Replace("ı", "i");
+
                         users.Add(new User
                         {
                             Id = userId++,
@@ -53,8 +61,8 @@ namespace Repositories.EFCore.Config
                             PasswordHash = hasher.HashPassword(new User(), "Password123!"),
                             SecurityStamp = Guid.NewGuid().ToString(),
                             Role = "Doctor",
-                            Specialization = specialization,
-                            ClinicId = clinicId,
+                            Specialization = specializationName,
+                            ClinicId = uniqueClinicId,
                             HospitalId = hospitalId
                         });
                     }

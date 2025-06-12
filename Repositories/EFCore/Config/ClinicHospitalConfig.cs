@@ -24,15 +24,22 @@ public class ClinicHospitalConfig : IEntityTypeConfiguration<ClinicHospital>
             .OnDelete(DeleteBehavior.Restrict); // Hospital silinmeye çalışılırsa ve ilişkili Clinic varsa engelle
 
         var clinicHospitals = new List<ClinicHospital>();
-        int totalHospitals = 45;
-        int totalClinics = 10;
+        int totalDistricts = 15;
+        int hospitalsPerDistrict = 3;
+        int clinicsPerDistrict = 10;
+        int totalHospitals = totalDistricts * hospitalsPerDistrict;
 
-        // Her hastaneye 10 kliniği ata
         for (int hospitalId = 1; hospitalId <= totalHospitals; hospitalId++)
         {
-            for (int clinicId = 1; clinicId <= totalClinics; clinicId++)
+            // Bu hastanenin hangi ilçeye ait olduğunu hesapla
+            int districtId = ((hospitalId - 1) / hospitalsPerDistrict) + 1;
+
+            // O ilçeye ait olan kliniklerin ID aralığını hesapla
+            int startClinicId = (districtId - 1) * clinicsPerDistrict + 1;
+            int endClinicId = districtId * clinicsPerDistrict;
+
+            for (int clinicId = startClinicId; clinicId <= endClinicId; clinicId++)
             {
-                // Id olmadan sadece ilişkiyi kuruyoruz
                 clinicHospitals.Add(new ClinicHospital { ClinicId = clinicId, HospitalId = hospitalId });
             }
         }

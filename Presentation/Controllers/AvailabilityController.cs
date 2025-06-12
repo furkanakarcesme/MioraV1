@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("api/availability")]
-[Authorize]
+//[Authorize]
 public class AvailabilityController : ControllerBase
 {
     private readonly IServiceManager _service; // Değişiklik: IRepositoryManager yerine IServiceManager

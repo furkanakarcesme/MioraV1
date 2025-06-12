@@ -7,7 +7,7 @@ namespace Presentation.Controllers
 {
     [ApiController]
     [Route("api/appointment")]
-    [Authorize]
+    //[Authorize]
     public class AppointmentController : ControllerBase
     {
         private readonly IServiceManager _service; 
