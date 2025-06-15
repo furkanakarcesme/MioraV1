@@ -14,5 +14,4 @@ public interface IServiceManager
     IXRayDiagnosisService XRayDiagnosis { get; }
     IPdfDiagnosticsService PdfDiagnostics { get; }
     IChatService Chat { get; }
-    IQuickPromptService QuickPrompt { get; }
 }

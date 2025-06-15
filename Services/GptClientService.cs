@@ -17,7 +17,7 @@ public class GptClientService : IGptClientService
         _configuration = configuration;
     }
 
-    public async Task<(string Response, int Tokens)> GetResponseAsync(string prompt)
+    public async Task<(string Response, List<string> Suggestions, int Tokens)> GetResponseAsync(string prompt)
     {
         var model = _configuration["GptSettings:Model"];
         
@@ -45,8 +45,21 @@ public class GptClientService : IGptClientService
 
         var message = gptResponse?.Choices?.FirstOrDefault()?.Message?.Content ?? "No response from AI.";
         var tokens = gptResponse?.Usage?.TotalTokens ?? 0;
+        
+        var parts = message.Split(new[] { "|||" }, StringSplitOptions.None);
+        var mainAnswer = parts[0].Trim();
+        var suggestions = new List<string>();
 
-        return (message.Trim(), tokens);
+        if (parts.Length > 1)
+        {
+            suggestions = parts[1]
+                .Trim()
+                .Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(s => s.Trim())
+                .ToList();
+        }
+
+        return (mainAnswer, suggestions, tokens);
     }
     
     // Internal DTOs for OpenAI API

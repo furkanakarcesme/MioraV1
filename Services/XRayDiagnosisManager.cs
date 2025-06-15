@@ -16,15 +16,13 @@ public class XRayDiagnosisManager : IXRayDiagnosisService
     private readonly IImageStorageService _imageStorage;
     private readonly IPythonXrayClient _pythonClient;
     private readonly IGptClientService _gptClient;
-    private readonly IQuickPromptService _quickPrompt;
 
-    public XRayDiagnosisManager(IRepositoryManager repositoryManager, IImageStorageService imageStorage, IPythonXrayClient pythonClient, IGptClientService gptClient, IQuickPromptService quickPrompt)
+    public XRayDiagnosisManager(IRepositoryManager repositoryManager, IImageStorageService imageStorage, IPythonXrayClient pythonClient, IGptClientService gptClient)
     {
         _repositoryManager = repositoryManager;
         _imageStorage = imageStorage;
         _pythonClient = pythonClient;
         _gptClient = gptClient;
-        _quickPrompt = quickPrompt;
     }
 
     public async Task<XRayResponseDto> PerformDiagnosisAsync(IFormFile imageFile, int userId)
@@ -60,8 +58,10 @@ public class XRayDiagnosisManager : IXRayDiagnosisService
         await _repositoryManager.SaveAsync();
         
         // 5. GPT prompt'unu oluştur ve çağır
-        var prompt = PromptFactory.BuildXrayPrompt(rawJsonResponse);
-        var (explanation, tokens) = await _gptClient.GetResponseAsync(prompt);
+        var gptPayload = JsonSerializer.Serialize(new { summary = JsonSerializer.Deserialize<JsonElement>(rawJsonResponse).GetProperty("summary").GetString(), details = JsonSerializer.Deserialize<JsonElement>(rawJsonResponse).GetProperty("details").GetString() });
+        var prompt = PromptFactory.BuildXrayPrompt(gptPayload);
+        
+        var (explanation, suggestions, tokens) = await _gptClient.GetResponseAsync(prompt);
         
         analysisResult.ResultSummary = explanation;
         
@@ -76,8 +76,11 @@ public class XRayDiagnosisManager : IXRayDiagnosisService
 
         await _repositoryManager.SaveAsync();
 
-        // 7. Yanıtı hazırla
-        var suggestions = _quickPrompt.GetSuggestions(QuickPromptType.XRay).Suggestions;
-        return new XRayResponseDto(analysisResult.Id, explanation, suggestions);
+        return new XRayResponseDto(
+            analysisResult.Id, 
+            JsonSerializer.Deserialize<JsonElement>(rawJsonResponse).GetProperty("summary").GetString() ?? string.Empty, 
+            JsonSerializer.Deserialize<JsonElement>(rawJsonResponse).GetProperty("details").GetString() ?? string.Empty,
+            explanation,
+            suggestions);
     }
 } 

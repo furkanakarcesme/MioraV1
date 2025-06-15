@@ -20,32 +20,6 @@ public class ChatController : ControllerBase
         _serviceManager = serviceManager;
     }
 
-    [HttpGet("suggestions/{analysisId:int}")]
-    public async Task<IActionResult> GetSuggestions(int analysisId)
-    {
-        // Analizin tipini bulup doğru QuickPromptType'ı seçmemiz gerekiyor.
-        // Bu bilgi AnalysisResult'ta var.
-        var analysis = await _serviceManager.Repositories.AnalysisResult
-            .FindByCondition(a => a.Id == analysisId, trackChanges: false)
-            .FirstOrDefaultAsync();
-
-        if (analysis is null)
-        {
-            return NotFound();
-        }
-        
-        var promptType = analysis.Type switch
-        {
-            AnalysisType.Labs => QuickPromptType.Labs,
-            AnalysisType.XRay => QuickPromptType.XRay,
-            AnalysisType.Diabetes => QuickPromptType.Diabetes,
-            _ => throw new ArgumentOutOfRangeException()
-        };
-        
-        var suggestions = _serviceManager.QuickPrompt.GetSuggestions(promptType);
-        return Ok(suggestions);
-    }
-    
     [HttpPost("messages")]
     public async Task<IActionResult> PostMessage([FromBody] ChatMessageRequest request)
     {

@@ -24,8 +24,7 @@ public class ServiceManager : IServiceManager
                           IPythonXrayClient pythonXrayClient,
                           IImageStorageService imageStorage,
                           IPdfStorageService pdfStorage,
-                          IGptClientService gptClient,
-                          IQuickPromptService quickPromptService)
+                          IGptClientService gptClient)
     {
         Repositories = repositoryManager;
 
@@ -34,15 +33,15 @@ public class ServiceManager : IServiceManager
         _dropdownManager = new Lazy<IDropdownService>(() => new DropdownManager(repositoryManager));
         
         _pdfDiagnosticsManager = new Lazy<IPdfDiagnosticsService>(() => 
-            new PdfDiagnosticsManager(repositoryManager, pythonPdfClient, quickPromptService, gptClient, pdfStorage));
+            new PdfDiagnosticsManager(repositoryManager, pythonPdfClient, gptClient, pdfStorage));
         
         _chatManager = new Lazy<IChatService>(() => 
-            new ChatManager(repositoryManager, quickPromptService, gptClient));
+            new ChatManager(repositoryManager, gptClient));
             
-        _quickPromptManager = new Lazy<IQuickPromptService>(() => quickPromptService);
+        _quickPromptManager = new Lazy<IQuickPromptService>(() => new QuickPromptManager());
 
         _xrayDiagnosisManager = new Lazy<IXRayDiagnosisService>(() => 
-            new XRayDiagnosisManager(repositoryManager, imageStorage, pythonXrayClient, gptClient, quickPromptService));
+            new XRayDiagnosisManager(repositoryManager, imageStorage, pythonXrayClient, gptClient));
     }
 
     public IAppointmentService AppointmentManager => _appointmentManager.Value;
@@ -51,6 +50,5 @@ public class ServiceManager : IServiceManager
     
     public IPdfDiagnosticsService PdfDiagnostics => _pdfDiagnosticsManager.Value;
     public IChatService Chat => _chatManager.Value;
-    public IQuickPromptService QuickPrompt => _quickPromptManager.Value;
     public IXRayDiagnosisService XRayDiagnosis => _xrayDiagnosisManager.Value;
 }

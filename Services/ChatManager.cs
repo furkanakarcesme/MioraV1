@@ -12,13 +12,11 @@ namespace Services;
 public class ChatManager : IChatService
 {
     private readonly IRepositoryManager _repositoryManager;
-    private readonly IQuickPromptService _quickPrompt;
     private readonly IGptClientService _gptClient;
 
-    public ChatManager(IRepositoryManager repositoryManager, IQuickPromptService quickPrompt, IGptClientService gptClient)
+    public ChatManager(IRepositoryManager repositoryManager, IGptClientService gptClient)
     {
         _repositoryManager = repositoryManager;
-        _quickPrompt = quickPrompt;
         _gptClient = gptClient;
     }
 
@@ -69,7 +67,7 @@ public class ChatManager : IChatService
         var prompt = PromptFactory.BuildChatPrompt(analysis.ResultSummary!, history.ToString(), request.Text);
 
         // 5. GPT'yi Çağır
-        var (gptAnswer, tokens) = await _gptClient.GetResponseAsync(prompt);
+        var (gptAnswer, suggestions, tokens) = await _gptClient.GetResponseAsync(prompt);
 
         // 6. AI Yanıtını Kaydet
         var assistantMessage = new ChatMessage
@@ -84,14 +82,6 @@ public class ChatManager : IChatService
         await _repositoryManager.SaveAsync();
         
         // 7. Yanıtı ve yeni önerileri döndür
-        var promptType = analysis.Type switch
-        {
-            AnalysisType.Labs => QuickPromptType.Labs,
-            AnalysisType.XRay => QuickPromptType.XRay,
-            AnalysisType.Diabetes => QuickPromptType.Diabetes,
-            _ => throw new ArgumentOutOfRangeException()
-        };
-        var suggestions = _quickPrompt.GetSuggestions(promptType).Suggestions;
         return new ChatMessageResponse(gptAnswer, suggestions);
     }
 } 

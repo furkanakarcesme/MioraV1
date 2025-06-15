@@ -2,5 +2,5 @@ namespace Services.Contracts;
 
 public interface IGptClientService
 {
-    Task<(string Response, int Tokens)> GetResponseAsync(string prompt);
+    Task<(string Response, List<string> Suggestions, int Tokens)> GetResponseAsync(string prompt);
 } 

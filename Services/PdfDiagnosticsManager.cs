@@ -15,7 +15,6 @@ public class PdfDiagnosticsManager : IPdfDiagnosticsService
     private readonly IRepositoryManager _repositoryManager;
     // private readonly IPdfStorageService _pdfStorage; // Henüz eklenmedi
     private readonly IPythonPdfClient _pythonClient;
-    private readonly IQuickPromptService _quickPrompt;
     private readonly IGptClientService _gptClient;
     private readonly IPdfStorageService _pdfStorage;
 
@@ -40,13 +39,11 @@ public class PdfDiagnosticsManager : IPdfDiagnosticsService
 
     public PdfDiagnosticsManager(IRepositoryManager repositoryManager, 
                                  IPythonPdfClient pythonClient, 
-                                 IQuickPromptService quickPrompt, 
                                  IGptClientService gptClient, 
                                  IPdfStorageService pdfStorage)
     {
         _repositoryManager = repositoryManager;
         _pythonClient = pythonClient;
-        _quickPrompt = quickPrompt;
         _gptClient = gptClient;
         _pdfStorage = pdfStorage;
     }
@@ -126,7 +123,7 @@ public class PdfDiagnosticsManager : IPdfDiagnosticsService
         var gptPayload = JsonSerializer.Serialize(enrichedLabValues);
         var prompt = PromptFactory.BuildLabsPrompt(gptPayload);
         
-        var (explanation, tokens) = await _gptClient.GetResponseAsync(prompt);
+        var (explanation, suggestions, tokens) = await _gptClient.GetResponseAsync(prompt);
 
         analysisResult.ResultSummary = explanation;
 
@@ -139,8 +136,7 @@ public class PdfDiagnosticsManager : IPdfDiagnosticsService
         });
         
         await _repositoryManager.SaveAsync();
-
-        var suggestions = _quickPrompt.GetSuggestions(QuickPromptType.Labs).Suggestions;
+        
         return new LabsPdfResponseDto(analysisResult.Id, observations, explanation, suggestions);
     }
     
@@ -152,7 +148,7 @@ public class PdfDiagnosticsManager : IPdfDiagnosticsService
         var gptPayload = JsonSerializer.Serialize(new { prediction = prediction ? "possible-diabetic" : "non-diabetic" });
         var prompt = PromptFactory.BuildDiabetesPrompt(gptPayload);
 
-        var (explanation, tokens) = await _gptClient.GetResponseAsync(prompt);
+        var (explanation, suggestions, tokens) = await _gptClient.GetResponseAsync(prompt);
 
         analysisResult.ResultSummary = explanation;
 
@@ -166,7 +162,6 @@ public class PdfDiagnosticsManager : IPdfDiagnosticsService
 
         await _repositoryManager.SaveAsync();
         
-        var suggestions = _quickPrompt.GetSuggestions(QuickPromptType.Diabetes).Suggestions;
         return new DiabetesPdfResponseDto(analysisResult.Id, prediction, explanation, suggestions);
     }
 } 
