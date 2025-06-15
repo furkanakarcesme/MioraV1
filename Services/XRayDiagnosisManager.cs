@@ -46,19 +46,25 @@ public class XRayDiagnosisManager : IXRayDiagnosisService
         // 3. Python servisini çağır
         var rawJsonResponse = await _pythonClient.AnalyzeXrayAsync(filePath);
 
-        // 4. Analiz sonucunu veritabanına kaydet
+        // 4. Analiz sonucunu veritabanına kaydet ve JSON'ı güvenli bir şekilde işle
+        using var jsonDoc = JsonDocument.Parse(rawJsonResponse);
+        var root = jsonDoc.RootElement;
+
+        var confidence = root.TryGetProperty("confidence", out var confidenceElement) ? confidenceElement.GetDouble() : 0.0;
+        var resultText = root.TryGetProperty("result", out var resultElement) ? resultElement.GetString() ?? "N/A" : "N/A";
+        
         var analysisResult = new AnalysisResult
         {
             UploadId = xrayUpload.Id,
             Type = AnalysisType.XRay,
             RawJson = rawJsonResponse,
-            Probability = JsonSerializer.Deserialize<JsonElement>(rawJsonResponse).GetProperty("confidence").GetDouble()
+            Probability = confidence
         };
         _repositoryManager.AnalysisResult.Create(analysisResult);
         await _repositoryManager.SaveAsync();
         
         // 5. GPT prompt'unu oluştur ve çağır
-        var gptPayload = JsonSerializer.Serialize(new { summary = JsonSerializer.Deserialize<JsonElement>(rawJsonResponse).GetProperty("summary").GetString(), details = JsonSerializer.Deserialize<JsonElement>(rawJsonResponse).GetProperty("details").GetString() });
+        var gptPayload = JsonSerializer.Serialize(new { result = resultText, confidence });
         var prompt = PromptFactory.BuildXrayPrompt(gptPayload);
         
         var (explanation, suggestions, tokens) = await _gptClient.GetResponseAsync(prompt);
@@ -78,8 +84,8 @@ public class XRayDiagnosisManager : IXRayDiagnosisService
 
         return new XRayResponseDto(
             analysisResult.Id, 
-            JsonSerializer.Deserialize<JsonElement>(rawJsonResponse).GetProperty("summary").GetString() ?? string.Empty, 
-            JsonSerializer.Deserialize<JsonElement>(rawJsonResponse).GetProperty("details").GetString() ?? string.Empty,
+            resultText, 
+            $"Confidence: {confidence:F2}%",
             explanation,
             suggestions);
     }
