@@ -13,6 +13,12 @@ namespace Repositories.EFCore
         private readonly Lazy<IDistrictRepository> _districtRepository;
         private readonly Lazy<IHospitalRepository> _hospitalRepository;*/
         private readonly Lazy<IUserRepository> _userRepository;
+        private readonly Lazy<ILabObservationRepository> _labObservationRepository;
+        private readonly Lazy<IChatSessionRepository> _chatSessionRepository;
+        private readonly Lazy<IChatMessageRepository> _chatMessageRepository;
+        private readonly Lazy<IUploadRepository> _uploadRepository;
+        private readonly Lazy<IAnalysisResultRepository> _analysisResultRepository;
+        private readonly Lazy<IAiPromptLogRepository> _aiPromptLogRepository;
         
 
         public RepositoryManager(RepositoryContext context)
@@ -26,6 +32,12 @@ namespace Repositories.EFCore
             _districtRepository = new Lazy<IDistrictRepository>(() => new DistrictRepository(_context));
             _hospitalRepository = new Lazy<IHospitalRepository>(() => new HospitalRepository(_context));*/
             _userRepository = new Lazy<IUserRepository>(() => new UserRepository(_context));
+            _labObservationRepository = new Lazy<ILabObservationRepository>(() => new LabObservationRepository(_context));
+            _chatSessionRepository = new Lazy<IChatSessionRepository>(() => new ChatSessionRepository(_context));
+            _chatMessageRepository = new Lazy<IChatMessageRepository>(() => new ChatMessageRepository(_context));
+            _uploadRepository = new Lazy<IUploadRepository>(() => new UploadRepository(_context));
+            _analysisResultRepository = new Lazy<IAnalysisResultRepository>(() => new AnalysisResultRepository(_context));
+            _aiPromptLogRepository = new Lazy<IAiPromptLogRepository>(() => new AiPromptLogRepository(_context));
         }
 
         public IAvailabilityRepository Availability => _availabilityRepository.Value;
@@ -37,6 +49,12 @@ namespace Repositories.EFCore
         public IDistrictRepository District => _districtRepository.Value;
         public IHospitalRepository Hospital => _hospitalRepository.Value;*/
         public IUserRepository User => _userRepository.Value;
+        public ILabObservationRepository LabObservation => _labObservationRepository.Value;
+        public IChatSessionRepository ChatSession => _chatSessionRepository.Value;
+        public IChatMessageRepository ChatMessage => _chatMessageRepository.Value;
+        public IUploadRepository Upload => _uploadRepository.Value;
+        public IAnalysisResultRepository AnalysisResult => _analysisResultRepository.Value;
+        public IAiPromptLogRepository AiPromptLog => _aiPromptLogRepository.Value;
 
         public async Task SaveAsync()
         {

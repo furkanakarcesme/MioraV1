@@ -33,6 +33,7 @@ builder.Services.AddCors(options => //deneme
 builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServiceManager();
+builder.Services.ConfigurePythonClients(builder.Configuration);
 
 builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
 {
