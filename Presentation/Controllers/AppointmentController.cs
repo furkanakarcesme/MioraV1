@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Entities.DataTransferObjects;
 using Services.Contracts;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace Presentation.Controllers
 {
-        
     [ApiController]
     [Route("api/appointment")]
+    //[Authorize]
     public class AppointmentController : ControllerBase
     {
         private readonly IServiceManager _service; 
@@ -39,7 +39,7 @@ namespace Presentation.Controllers
             }
             catch (ArgumentException ex)
             {
-                // Service’de fırlatılan hata
+                // Service'de fırlatılan hata
                 return BadRequest(new { error = ex.Message });
             }
         }

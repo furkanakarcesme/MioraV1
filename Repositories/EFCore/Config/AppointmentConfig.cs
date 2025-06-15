@@ -26,7 +26,18 @@ namespace Repositories.EFCore.Config
                 .HasForeignKey(a => a.AvailabilityId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            
+            // Örnek veri
+            builder.HasData(
+                new Appointment
+                {
+                    Id = 1,
+                    PatientId = 4, // Ali Veli
+                    DoctorId = 2,  // Dr. Ayşe Yılmaz
+                    AvailabilityId = 1,
+                    AppointmentDate = DateTime.Today.AddDays(2),
+                    Status = AppointmentStatus.Scheduled
+                }
+            );
         }
     }
 }

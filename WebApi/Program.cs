@@ -33,6 +33,7 @@ builder.Services.AddCors(options => //deneme
 builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServiceManager();
+builder.Services.ConfigurePythonClients(builder.Configuration);
 
 builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
 {
@@ -59,7 +60,8 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         ValidIssuer = jwtSettings["Issuer"],
         ValidAudience = jwtSettings["Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Secret"]!))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Secret"]!)),
+        ClockSkew = TimeSpan.Zero 
     };
 });
 

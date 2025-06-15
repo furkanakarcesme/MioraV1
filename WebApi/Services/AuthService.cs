@@ -46,6 +46,13 @@ namespace WebApi.Services
                 return null;
 
             var roles = await _userManager.GetRolesAsync(user);
+
+            // Doktorların giriş yapmasını engelle
+            if (roles.Contains("Doctor"))
+            {
+                return null;
+            }
+
             var accessToken = GenerateJwtToken(user, roles);
             var refreshToken = GenerateRefreshToken();
 
@@ -59,12 +66,12 @@ namespace WebApi.Services
         public async Task<TokenDto?> RefreshTokenAsync(TokenDto tokenDto)
         {
             var principal = GetPrincipalFromExpiredToken(tokenDto.AccessToken);
-            var userEmail = principal.Identity?.Name;
+            var userName = principal.Identity?.Name;
             
-            if (userEmail is null)
+            if (userName is null)
                 return null;
 
-            var user = await _userManager.FindByEmailAsync(userEmail);
+            var user = await _userManager.FindByNameAsync(userName);
 
             if (user == null || user.RefreshToken != tokenDto.RefreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
                 return null;

@@ -190,11 +190,11 @@ public class AvailabilityManager : IAvailabilityService
         // 2) Filtreye Uygun Doktorları Bul
         //    (UserRepository içinde "GetDoctorsByFiltersAsync" gibi bir metod yazacağız.
         //     Orada city/district/hospital/clinic/doctlorId sorgusu yapabiliriz.)
-        // … tarih hazırlığı aynı
-
         var doctors = await _repository.User.GetDoctorsByFiltersAsync(
-            request.CityId, request.ClinicId,
-            request.DistrictId, request.HospitalId,
+            request.CityId, 
+            request.ClinicId,
+            request.DistrictId, 
+            request.HospitalId,
             request.DoctorId);
 
         if (doctors.Count == 0) return new();   // hiç doktor yok
@@ -212,7 +212,7 @@ public class AvailabilityManager : IAvailabilityService
             .Where(a => a.AvailableDate >= start && a.AvailableDate <= end)
             .ToList();
 
-//  ◂◂  “En erken slotu” listelemek istiyorsanız:
+//  ◂◂  "En erken slotu" listelemek istiyorsanız:
         var earliestPerDoctor = finalSlots
             .GroupBy(a => a.DoctorId)
             .Select(g => g.OrderBy(a => a.AvailableDate)
@@ -225,9 +225,13 @@ public class AvailabilityManager : IAvailabilityService
                 Id           = a.Id,
                 DoctorId     = a.DoctorId,
                 DoctorName   = a.Doctor?.Name,
+                HospitalId   = a.Doctor?.HospitalId ?? 0,
+                HospitalName = a.Doctor?.Hospital?.Name ?? string.Empty,
                 AvailableDate= a.AvailableDate,
                 StartTime    = a.StartTime,
-                EndTime      = a.EndTime
+                EndTime      = a.EndTime,
+                IsDeleted    = a.IsDeleted,
+                IsBooked     = a.IsBooked
             }).OrderBy(r => r.AvailableDate)
             .ThenBy(r => r.StartTime)
             .ToList();
