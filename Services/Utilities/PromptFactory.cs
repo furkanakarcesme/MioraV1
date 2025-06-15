@@ -35,16 +35,16 @@ public static class PromptFactory
     public static string BuildChatPrompt(string analysisExplanation, string history, string userText)
     {
         return $"""
-                CONTEXT:
+                You are a helpful medical assistant. Your task is to answer the user's question based on the provided analysis summary and the chat history. Provide your answer in Turkish, in a clear and concise way.
+
+                ANALYSIS SUMMARY:
                 {analysisExplanation}
 
-                CHAT HISTORY (son 10 mesaj):
+                CHAT HISTORY (last 10 messages):
                 {history}
 
-                USER:
+                USER'S QUESTION:
                 {userText}
-                
-                ASSISTANT_MUST: Türkçe, kısa, anlaşılır öneriler ver.
                 """;
     }
 } 

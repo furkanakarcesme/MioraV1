@@ -84,7 +84,14 @@ public class ChatManager : IChatService
         await _repositoryManager.SaveAsync();
         
         // 7. Yanıtı ve yeni önerileri döndür
-        var suggestions = _quickPrompt.GetSuggestions((QuickPromptType)analysis.Type).Suggestions;
+        var promptType = analysis.Type switch
+        {
+            AnalysisType.Labs => QuickPromptType.Labs,
+            AnalysisType.XRay => QuickPromptType.XRay,
+            AnalysisType.Diabetes => QuickPromptType.Diabetes,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        var suggestions = _quickPrompt.GetSuggestions(promptType).Suggestions;
         return new ChatMessageResponse(gptAnswer, suggestions);
     }
 } 

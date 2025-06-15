@@ -34,7 +34,15 @@ public class ChatController : ControllerBase
             return NotFound();
         }
         
-        var suggestions = _serviceManager.QuickPrompt.GetSuggestions((QuickPromptType)analysis.Type);
+        var promptType = analysis.Type switch
+        {
+            AnalysisType.Labs => QuickPromptType.Labs,
+            AnalysisType.XRay => QuickPromptType.XRay,
+            AnalysisType.Diabetes => QuickPromptType.Diabetes,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        
+        var suggestions = _serviceManager.QuickPrompt.GetSuggestions(promptType);
         return Ok(suggestions);
     }
     
@@ -45,13 +53,15 @@ public class ChatController : ControllerBase
         {
             return UnprocessableEntity(ModelState);
         }
-        
-        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        if (userIdClaim is null || !int.TryParse(userIdClaim, out var userId))
-        {
-            return Unauthorized();
-        }
 
+        // var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        // if (userIdClaim is null || !int.TryParse(userIdClaim, out var userId))
+        // {
+        //     return Unauthorized();
+        // }
+        
+        var userId = 1; //TODO: Will be changed after authentication.
+        
         var result = await _serviceManager.Chat.ProcessUserMessageAsync(request, userId);
         return Ok(result);
     }
