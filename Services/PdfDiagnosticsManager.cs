@@ -62,6 +62,7 @@ public class PdfDiagnosticsManager : IPdfDiagnosticsService
             Pages = pageCount
         };
         _repositoryManager.Upload.CreateUpload(pdfUpload);
+        await _repositoryManager.SaveAsync(); // ÖNCE Upload kaydını DB'ye yaz ve Id'sinin oluştuğundan emin ol.
 
         // 2. Python servisini çağır
         var rawJsonResponse = await _pythonClient.AnalyzePdfAsync(filePath, mode);
@@ -78,7 +79,7 @@ public class PdfDiagnosticsManager : IPdfDiagnosticsService
             CreatedAt = DateTime.UtcNow
         };
         _repositoryManager.AnalysisResult.Create(analysisResult);
-        await _repositoryManager.SaveAsync(); // Analiz ID'sinin oluşması için burada kaydediyoruz.
+        await _repositoryManager.SaveAsync(); // Analiz ID'sinin oluşması için burada KAYDET.
 
         // 4. Bu analize bağlı bir sohbet oturumu oluştur
         var chatSession = new ChatSession
@@ -88,7 +89,7 @@ public class PdfDiagnosticsManager : IPdfDiagnosticsService
             CreatedAt = DateTime.UtcNow
         };
         _repositoryManager.ChatSession.Create(chatSession);
-        await _repositoryManager.SaveAsync();
+        await _repositoryManager.SaveAsync(); // Sohbet oturumunu da burada KAYDET.
 
         // 5. Sonucu işle ve GPT'ye gönder
         if (mode == PdfAnalysisMode.Labs)

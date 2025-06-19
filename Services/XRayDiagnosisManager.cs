@@ -42,6 +42,7 @@ public class XRayDiagnosisManager : IXRayDiagnosisService
         // Not: RepositoryManager'da doğrudan context'e erişim yerine
         // XRayUpload için bir repository oluşturmak daha doğru bir yaklaşımdır.
         _repositoryManager.Upload.CreateUpload(xrayUpload);
+        await _repositoryManager.SaveAsync();
         
         // 3. Python servisini çağır
         var rawJsonResponse = await _pythonClient.AnalyzeXrayAsync(filePath);
@@ -50,7 +51,7 @@ public class XRayDiagnosisManager : IXRayDiagnosisService
         using var jsonDoc = JsonDocument.Parse(rawJsonResponse);
         var root = jsonDoc.RootElement;
 
-        var confidence = root.TryGetProperty("confidence", out var confidenceElement) ? confidenceElement.GetDouble() : 0.0;
+        var confidence = root.TryGetProperty("HastalikOrani", out var confidenceElement) ? confidenceElement.GetDouble() : 0.0;
         var resultText = root.TryGetProperty("result", out var resultElement) ? resultElement.GetString() ?? "N/A" : "N/A";
         
         var analysisResult = new AnalysisResult
@@ -74,7 +75,7 @@ public class XRayDiagnosisManager : IXRayDiagnosisService
         await _repositoryManager.SaveAsync();
 
         // 6. GPT prompt'unu oluştur ve çağır
-        var gptPayload = JsonSerializer.Serialize(new { result = resultText, confidence });
+        var gptPayload = JsonSerializer.Serialize(new { result = resultText, HastalikOrani = confidence });
         var prompt = PromptFactory.BuildXrayPrompt(gptPayload);
         
         var (explanation, suggestions, tokens) = await _gptClient.GetResponseAsync(prompt);
@@ -95,7 +96,7 @@ public class XRayDiagnosisManager : IXRayDiagnosisService
         return new XRayResponseDto(
             analysisResult.Id, 
             resultText, 
-            $"Confidence: {confidence:F2}%",
+            $"Hastalık Oranı: {confidence:F2}%",
             explanation,
             suggestions);
     }
