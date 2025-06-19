@@ -35,10 +35,12 @@ public class AuthService : IAuthService
         };
         var result = await _userManager.CreateAsync(user, userForRegistrationDto.Password);
         if (!result.Succeeded)
-            throw new Exception("User could not be created.");
+        {
+            var errors = string.Join("\n", result.Errors.Select(e => e.Description));
+            throw new Exception($"User could not be created: {errors}");
+        }
 
-        if (userForRegistrationDto.Roles.Any())
-            await _userManager.AddToRolesAsync(user, userForRegistrationDto.Roles);
+        await _userManager.AddToRoleAsync(user, "Patient");
 
         return await CreateToken(user);
     }
