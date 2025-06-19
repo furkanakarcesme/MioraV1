@@ -23,7 +23,7 @@ public static class ServicesExtensions
     public static void ConfigureServiceManager(this IServiceCollection services)
     {
         services.AddScoped<IServiceManager, ServiceManager>();
-        services.AddScoped<AuthService>();
+        services.AddScoped<IAuthService, AuthService>();
         
         services.AddScoped<IQuickPromptService, QuickPromptManager>();
         services.AddScoped<IChatService, ChatManager>();
@@ -85,5 +85,10 @@ public static class ServicesExtensions
         services.AddScoped<IUploadRepository, UploadRepository>();
         services.AddScoped<IAnalysisResultRepository, AnalysisResultRepository>();
         services.AddScoped<IAiPromptLogRepository, AiPromptLogRepository>();
+    }
+
+    public static void ConfigureIdentity(this IServiceCollection services)
+    {
+        // ... existing code ...
     }
 }

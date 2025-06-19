@@ -1,47 +1,59 @@
-using Entities.DTOs;
 using Microsoft.AspNetCore.Mvc;
+using Entities.DataTransferObjects;
 using WebApi.Services;
-using Microsoft.AspNetCore.Identity;
-using Entities.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
-namespace WebApi.Controllers
+namespace WebApi.Controllers;
+
+[ApiController]
+[Route("api/auth")]
+public class AuthController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class AuthController : ControllerBase
+    private readonly IAuthService _authService;
+
+    public AuthController(IAuthService authService)
     {
-        private readonly AuthService _authService;
-        
-        public AuthController(AuthService authService)
+        _authService = authService;
+    }
+
+    [HttpPost("register")]
+    public async Task<IActionResult> RegisterUser([FromBody] UserForRegistrationDto userForRegistrationDto)
+    {
+        var tokenDto = await _authService.RegisterAsync(userForRegistrationDto);
+        return Ok(tokenDto);
+    }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationDto userForAuthenticationDto)
+    {
+        var tokenDto = await _authService.LoginAsync(userForAuthenticationDto);
+        return Ok(tokenDto);
+    }
+    
+    [HttpPost("refresh")]
+    public async Task<IActionResult> Refresh([FromBody] TokenDto tokenDto)
+    {
+        var newTokens = await _authService.RefreshTokenAsync(tokenDto);
+        return Ok(newTokens);
+    }
+    
+    [Authorize]
+    [HttpGet("profile")]
+    public async Task<IActionResult> GetUserProfile()
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(userId))
         {
-            _authService = authService;
+            return Unauthorized();
         }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] UserForRegistrationDto dto)
+        var userDto = await _authService.GetUserProfileAsync(userId);
+        if (userDto is null)
         {
-            var result = await _authService.RegisterUserAsync(dto);
-            if (!result.Succeeded)
-                return BadRequest(result.Errors);
-            return Ok();
+            return NotFound("User not found.");
         }
 
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] UserForAuthenticationDto dto)
-        {
-            var token = await _authService.LoginAsync(dto);
-            if (token == null)
-                return Unauthorized();
-            return Ok(token);
-        }
-
-        [HttpPost("refresh")]
-        public async Task<IActionResult> Refresh([FromBody] TokenDto tokenDto)
-        {
-            var newTokens = await _authService.RefreshTokenAsync(tokenDto);
-            if (newTokens == null)
-                return BadRequest("Invalid refresh token.");
-            return Ok(newTokens);
-        }
+        return Ok(userDto);
     }
 } 
