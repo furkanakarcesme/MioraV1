@@ -83,7 +83,6 @@ public class PdfDiagnosticsManager : IPdfDiagnosticsService
         // 4. Bu analize bağlı bir sohbet oturumu oluştur
         var chatSession = new ChatSession
         {
-            Id = analysisResult.Id, // ChatSession ve AnalysisResult aynı ID'yi kullanır
             UserId = userId,
             AnalysisId = analysisResult.Id,
             CreatedAt = DateTime.UtcNow
