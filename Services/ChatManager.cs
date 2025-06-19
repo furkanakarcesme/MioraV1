@@ -41,8 +41,8 @@ public class ChatManager : IChatService
 
         if (session is null)
         {
-            session = new ChatSession { AnalysisId = request.AnalysisId, UserId = userId };
-            _repositoryManager.ChatSession.Create(session);
+            // Bu durum artık bir istisnadır. Analiz oluşturulurken ChatSession da oluşturulmalıdır.
+            throw new Exception($"Chat session for Analysis ID {request.AnalysisId} not found. This should not happen.");
         }
 
         // 2. Kullanıcı Mesajını Kaydet

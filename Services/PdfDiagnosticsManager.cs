@@ -80,7 +80,18 @@ public class PdfDiagnosticsManager : IPdfDiagnosticsService
         _repositoryManager.AnalysisResult.Create(analysisResult);
         await _repositoryManager.SaveAsync(); // Analiz ID'sinin oluşması için burada kaydediyoruz.
 
-        // 4. Sonucu işle ve GPT'ye gönder
+        // 4. Bu analize bağlı bir sohbet oturumu oluştur
+        var chatSession = new ChatSession
+        {
+            Id = analysisResult.Id, // ChatSession ve AnalysisResult aynı ID'yi kullanır
+            UserId = userId,
+            AnalysisId = analysisResult.Id,
+            CreatedAt = DateTime.UtcNow
+        };
+        _repositoryManager.ChatSession.Create(chatSession);
+        await _repositoryManager.SaveAsync();
+
+        // 5. Sonucu işle ve GPT'ye gönder
         if (mode == PdfAnalysisMode.Labs)
         {
             return await ProcessLabsResult(analysisResult);

@@ -5,7 +5,7 @@ using System.Security.Claims;
 
 namespace Presentation.Controllers;
 
-//[Authorize]
+[Authorize]
 [ApiController]
 [Route("api/xray")]
 public class XRayController : ControllerBase
@@ -29,10 +29,7 @@ public class XRayController : ControllerBase
         var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (userIdClaim is null || !int.TryParse(userIdClaim, out var userId))
         {
-            // HACK: For testing purposes without authentication, default to user ID 1.
-            // In a real scenario, this should return Unauthorized().
-            userId = 1;
-            // return Unauthorized();
+            return Unauthorized();
         }
         
         var result = await _serviceManager.XRayDiagnosis.PerformDiagnosisAsync(file, userId);

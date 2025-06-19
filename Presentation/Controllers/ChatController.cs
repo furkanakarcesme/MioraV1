@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace Presentation.Controllers;
 
-//[Authorize]
+[Authorize]
 [ApiController]
 [Route("api/chat")]
 public class ChatController : ControllerBase
@@ -28,13 +28,11 @@ public class ChatController : ControllerBase
             return UnprocessableEntity(ModelState);
         }
 
-        // var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        // if (userIdClaim is null || !int.TryParse(userIdClaim, out var userId))
-        // {
-        //     return Unauthorized();
-        // }
-        
-        var userId = 1; //TODO: Will be changed after authentication.
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userIdClaim is null || !int.TryParse(userIdClaim, out var userId))
+        {
+            return Unauthorized();
+        }
         
         var result = await _serviceManager.Chat.ProcessUserMessageAsync(request, userId);
         return Ok(result);

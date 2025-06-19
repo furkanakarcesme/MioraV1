@@ -63,7 +63,18 @@ public class XRayDiagnosisManager : IXRayDiagnosisService
         _repositoryManager.AnalysisResult.Create(analysisResult);
         await _repositoryManager.SaveAsync();
         
-        // 5. GPT prompt'unu oluştur ve çağır
+        // 5. Bu analize bağlı bir sohbet oturumu oluştur
+        var chatSession = new ChatSession
+        {
+            Id = analysisResult.Id, // ChatSession ve AnalysisResult aynı ID'yi kullanır
+            UserId = userId,
+            AnalysisId = analysisResult.Id,
+            CreatedAt = DateTime.UtcNow
+        };
+        _repositoryManager.ChatSession.Create(chatSession);
+        await _repositoryManager.SaveAsync();
+
+        // 6. GPT prompt'unu oluştur ve çağır
         var gptPayload = JsonSerializer.Serialize(new { result = resultText, confidence });
         var prompt = PromptFactory.BuildXrayPrompt(gptPayload);
         
@@ -71,7 +82,7 @@ public class XRayDiagnosisManager : IXRayDiagnosisService
         
         analysisResult.ResultSummary = explanation;
         
-        // 6. AI log'unu kaydet
+        // 7. AI log'unu kaydet
         _repositoryManager.AiPromptLog.Create(new AiPromptLog
         {
             AnalysisId = analysisResult.Id,
